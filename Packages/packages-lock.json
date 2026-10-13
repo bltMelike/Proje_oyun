@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.h8man.2d.navmeshplus": {
+      "version": "https://github.com/h8man/NavMeshPlus.git#master",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "16283ee1040e591b9a99ddf93f37e9af93925aaf"
+    },
     "com.unity.2d.animation": {
       "version": "13.0.6",
       "depth": 0,
@@ -18,9 +25,9 @@
       "depth": 0,
       "source": "registry",
       "dependencies": {
+        "com.unity.2d.common": "12.0.3",
         "com.unity.2d.sprite": "1.0.0",
         "com.unity.2d.tilemap": "1.0.0",
-        "com.unity.2d.common": "12.0.3",
         "com.unity.mathematics": "1.2.6",
         "com.unity.modules.animation": "1.0.0"
       },
@@ -31,13 +38,13 @@
       "depth": 1,
       "source": "registry",
       "dependencies": {
-        "com.unity.collections": "2.4.3",
+        "com.unity.burst": "1.8.4",
         "com.unity.2d.sprite": "1.0.0",
+        "com.unity.collections": "2.4.3",
         "com.unity.mathematics": "1.1.0",
-        "com.unity.modules.imageconversion": "1.0.0",
-        "com.unity.modules.uielements": "1.0.0",
         "com.unity.modules.animation": "1.0.0",
-        "com.unity.burst": "1.8.4"
+        "com.unity.modules.uielements": "1.0.0",
+        "com.unity.modules.imageconversion": "1.0.0"
       },
       "url": "https://packages.unity.com"
     },
@@ -63,8 +70,8 @@
       "depth": 0,
       "source": "registry",
       "dependencies": {
-        "com.unity.mathematics": "1.1.0",
         "com.unity.2d.common": "12.0.0",
+        "com.unity.mathematics": "1.1.0",
         "com.unity.modules.physics2d": "1.0.0"
       },
       "url": "https://packages.unity.com"
@@ -83,8 +90,8 @@
       "depth": 0,
       "source": "registry",
       "dependencies": {
-        "com.unity.modules.tilemap": "1.0.0",
         "com.unity.2d.tilemap": "1.0.0",
+        "com.unity.modules.tilemap": "1.0.0",
         "com.unity.modules.jsonserialize": "1.0.0"
       },
       "url": "https://packages.unity.com"
@@ -123,8 +130,8 @@
       "dependencies": {
         "com.unity.burst": "1.8.29",
         "com.unity.mathematics": "1.3.2",
-        "com.unity.nuget.mono-cecil": "1.11.6",
         "com.unity.test-framework": "1.4.6",
+        "com.unity.nuget.mono-cecil": "1.11.6",
         "com.unity.test-framework.performance": "3.0.3"
       },
       "url": "https://packages.unity.com"
@@ -257,9 +264,9 @@
       "depth": 0,
       "source": "registry",
       "dependencies": {
+        "com.unity.modules.audio": "1.0.0",
         "com.unity.modules.director": "1.0.0",
         "com.unity.modules.animation": "1.0.0",
-        "com.unity.modules.audio": "1.0.0",
         "com.unity.modules.particlesystem": "1.0.0"
       },
       "url": "https://packages.unity.com"
