@@ -12,6 +12,7 @@ public class OyuncuKontrol : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private Vector2 input;
     private int yon = 0; // 0: aşağı, 1: yukarı, 2: sağ/sol
+    private bool kontrolAktif = true;
 
     private void Awake()
     {
@@ -20,8 +21,27 @@ public class OyuncuKontrol : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
+    public void KontrolAktif(bool aktif)
+    {
+        kontrolAktif = aktif;
+        if (!aktif)
+        {
+            input = Vector2.zero;
+            animator.SetBool("Yuruyor", false);
+        }
+    }
+
+    public void SagaBak(bool sag)
+    {
+        yon = 2;
+        spriteRenderer.flipX = !sag;
+        animator.SetInteger("Yon", yon);
+    }
+
     private void Update()
     {
+        if (!kontrolAktif) return;
+
         input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
         bool yuruyor = input.sqrMagnitude > 0.01f;
 
