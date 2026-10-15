@@ -1,17 +1,19 @@
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
-// Hayaletin ana sınıfı. Sahnede hayalet objesine takılacak.
-// RequireComponent: objede NavMeshAgent yoksa Unity otomatik ekler.
+// Hayaletin ana sınıfı. Sahneler arası kalıcıdır, yeni sahnede oyuncuyu bulup yanına gelir.
 [RequireComponent(typeof(NavMeshAgent))]
 public class GhostController : MonoBehaviour
 {
-    // Inspector'dan atanır: hayaletin takip edeceği oyuncu.
     [SerializeField] private Transform player;
-    // Oyuncuya ne kadar yaklaşınca duracağı (birim cinsinden).
     [SerializeField] private float followDistance = 2f;
+    // Yeni sahnede oyuncunun ne kadar yanında belireceği.
+    [SerializeField] private Vector2 spawnOffset = new Vector2(-1f, 0f);
 
-    // Durumların erişebilmesi için dışarıya açılan, sadece okunabilir özellikler.
+    // Aynı anda tek hayalet olsun (sahne değişince kopya oluşmasın).
+    public static GhostController Instance { get; private set; }
+
     public NavMeshAgent Agent { get; private set; }
     public Transform Player => player;
     public float FollowDistance => followDistance;
@@ -21,23 +23,55 @@ public class GhostController : MonoBehaviour
 
     private void Awake()
     {
+        // Zaten bir hayalet varsa (yeni sahnedeki kopya) kendini yok et.
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+        // Sahne değişince yok olmasın.
+        DontDestroyOnLoad(gameObject);
+
         Agent = GetComponent<NavMeshAgent>();
-        // 2D için şart: ajanın objeyi döndürmesini ve Z ekseninde oynatmasını engeller.
         Agent.updateRotation = false;
         Agent.updateUpAxis = false;
-
         followState = new FollowState();
     }
 
-    // Oyun başlayınca ilk durum: oyuncuyu takip et.
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
     private void Start()
     {
+        if (Instance != this) return;
         stateMachine.ChangeState(followState, this);
     }
 
-    // Her karede aktif durumu çalıştır.
+    // Yeni sahne yüklenince oyuncuyu bul ve hayaleti yanına ışınla.
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (Instance != this) return;
+
+        GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+        if (playerObj == null) return;
+
+        player = playerObj.transform;
+        Vector3 target = player.position + (Vector3)spawnOffset;
+        Agent.Warp(target);
+    }
+
     private void Update()
     {
+        // Oyuncu yoksa (sahne geçişi anı) bir şey yapma, hata vermesin.
+        if (player == null) return;
         stateMachine.Tick(this);
     }
 }
