@@ -1,33 +1,38 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-// Hayaletin sadece GÖRÜNÜMÜNDEN sorumlu sınıf:
-// 1) Yürüdüğü yöne göre sprite'ı çevirir.
-// 2) Yürürken aşağı yukarı süzülme + hafif sallanma efekti verir.
-// Hareket mantığı GhostController'da kalır (tek sorumluluk prensibi).
+// Hayaletin GÖRÜNÜMÜNDEN sorumlu sınıf:
+// 1) Sağa/sola giderken sprite'ı çevirir (flipX).
+// 2) Yöne göre uygun kare dizisini oynatır (yukarı = arkadan, diğer = önden).
+// 3) Yürürken süzülme + hafif sallanma efekti verir.
 [RequireComponent(typeof(NavMeshAgent))]
 public class GhostVisual : MonoBehaviour
 {
+    [Header("Kare dizileri (Inspector'dan sürükle)")]
+    [SerializeField] private Sprite[] idleFrames;   // dururken: hayalet_0
+    [SerializeField] private Sprite[] sideFrames;   // sağ/sol ve aşağı: yüzü görünenler
+    [SerializeField] private Sprite[] upFrames;     // yukarı: hayalet_1, 5, 9
+    [SerializeField] private float frameRate = 8f;
+
     [Header("Yön")]
     [SerializeField] private bool spriteFacesLeft = false;
     [SerializeField] private float minSpeedToFlip = 0.1f;
 
     [Header("Yürüme efekti")]
-    [SerializeField] private float bobHeight = 0.08f;   // aşağı yukarı mesafe
-    [SerializeField] private float bobSpeed = 10f;      // süzülme hızı
-    [SerializeField] private float tiltAngle = 6f;      // sağa sola sallanma açısı
+    [SerializeField] private float bobHeight = 0.08f;
+    [SerializeField] private float bobSpeed = 10f;
+    [SerializeField] private float tiltAngle = 6f;
 
     private NavMeshAgent agent;
     private SpriteRenderer spriteRenderer;
-    private Transform visual;      // sadece görüntüyü oynatacağımız çocuk obje
+    private Transform visual;
     private Vector3 visualStartPos;
-    private float timer;
+    private float bobTimer;
+    private float frameTimer;
 
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
-
-        // Sprite'ı çocuk objede ararız; yoksa kendi üstünde kullanırız.
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         visual = spriteRenderer.transform;
         visualStartPos = visual.localPosition;
@@ -35,32 +40,44 @@ public class GhostVisual : MonoBehaviour
 
     private void Update()
     {
-        float vx = agent.velocity.x;
-        bool isMoving = agent.velocity.sqrMagnitude > 0.01f;
+        Vector3 vel = agent.velocity;
+        bool isMoving = vel.sqrMagnitude > 0.01f;
 
-        // 1) Yön çevirme
-        if (Mathf.Abs(vx) > minSpeedToFlip)
+        // Yön çevirme (sadece yatay harekette)
+        if (Mathf.Abs(vel.x) > minSpeedToFlip)
         {
-            bool movingLeft = vx < 0f;
+            bool movingLeft = vel.x < 0f;
             spriteRenderer.flipX = spriteFacesLeft ? !movingLeft : movingLeft;
         }
 
-        // 2) Yürüme efekti: sadece hareket ederken çalışır
+        // Hangi kare dizisi oynayacak?
+        Sprite[] frames = idleFrames;
         if (isMoving)
         {
-            timer += Time.deltaTime * bobSpeed;
-            float offsetY = Mathf.Sin(timer) * bobHeight;
-            float tilt = Mathf.Sin(timer * 0.5f) * tiltAngle;
+            bool goingUp = Mathf.Abs(vel.y) > Mathf.Abs(vel.x) && vel.y > 0f;
+            frames = goingUp ? upFrames : sideFrames;
+        }
+        PlayFrames(frames);
 
-            visual.localPosition = visualStartPos + new Vector3(0f, offsetY, 0f);
-            visual.localRotation = Quaternion.Euler(0f, 0f, tilt);
+        // Süzülme efekti
+        if (isMoving)
+        {
+            bobTimer += Time.deltaTime * bobSpeed;
+            visual.localPosition = visualStartPos + new Vector3(0f, Mathf.Sin(bobTimer) * bobHeight, 0f);
+            visual.localRotation = Quaternion.Euler(0f, 0f, Mathf.Sin(bobTimer * 0.5f) * tiltAngle);
         }
         else
         {
-            // Dururken yumuşakça başlangıç konumuna dön.
             visual.localPosition = Vector3.Lerp(visual.localPosition, visualStartPos, Time.deltaTime * 10f);
             visual.localRotation = Quaternion.Lerp(visual.localRotation, Quaternion.identity, Time.deltaTime * 10f);
-            timer = 0f;
+            bobTimer = 0f;
         }
+    }
+
+    private void PlayFrames(Sprite[] frames)
+    {
+        if (frames == null || frames.Length == 0) return;
+        frameTimer += Time.deltaTime * frameRate;
+        spriteRenderer.sprite = frames[(int)frameTimer % frames.Length];
     }
 }
