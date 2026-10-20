@@ -131,6 +131,7 @@ GameObject:
   - component: {fileID: 9308160}
   - component: {fileID: 9308159}
   - component: {fileID: 9308161}
+  - component: {fileID: 9308162}
   m_Layer: 0
   m_Name: hayalet_0
   m_TagString: Untagged
@@ -171,6 +172,7 @@ MonoBehaviour:
   spawnOffset: {x: -1, y: 0}
   arriveDistance: 0.4
   spellDuration: 1.5
+  sensorComponent: {fileID: 9308162}
 --- !u!195 &9308160
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -217,6 +219,24 @@ MonoBehaviour:
   bobHeight: 0.05
   bobSpeed: 10
   tiltAngle: 0
+--- !u!114 &9308162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9308156}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c946bc06cafd3c458e277aadfc1fc51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RaycastSensor
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 64
+  rayCount: 8
+  range: 3
+  drawGizmos: 1
 --- !u!1 &508714583
 GameObject:
   m_ObjectHideFlags: 0

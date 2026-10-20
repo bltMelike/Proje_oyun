@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.SceneManagement;
 
-// Hayaletin ana sınıfı. Sahneler arası kalıcıdır, durumları yönetir.
+// Hayaletin ana sınıfı. Sahneler arası kalıcıdır, durumları ve sensörü yönetir.
 [RequireComponent(typeof(NavMeshAgent))]
 public class GhostController : MonoBehaviour
 {
@@ -12,12 +12,15 @@ public class GhostController : MonoBehaviour
     [SerializeField] private Vector2 spawnOffset = new Vector2(-1f, 0f);
     [SerializeField] private float arriveDistance = 0.4f;
     [SerializeField] private float spellDuration = 1.5f;
+    [SerializeField] private RaycastSensor sensorComponent;
 
     public static GhostController Instance { get; private set; }
 
     public NavMeshAgent Agent { get; private set; }
     public Transform Player => player;
     public float FollowDistance => followDistance;
+    public IObstacleSensor Sensor => sensorComponent;
+    public bool LastRouteWasDetour { get; set; }
 
     private readonly GhostStateMachine stateMachine = new GhostStateMachine();
     private FollowState followState;
@@ -36,6 +39,10 @@ public class GhostController : MonoBehaviour
         Agent.updateRotation = false;
         Agent.updateUpAxis = false;
         followState = new FollowState();
+
+        // Inspector'da atanmadıysa aynı objedeki sensörü kendisi bulsun.
+        if (sensorComponent == null)
+            sensorComponent = GetComponent<RaycastSensor>();
     }
 
     private void OnEnable() { SceneManager.sceneLoaded += OnSceneLoaded; }
@@ -61,6 +68,11 @@ public class GhostController : MonoBehaviour
     private void Update()
     {
         if (player == null) return;
+
+        // Her karede çevreyi gözlemle.
+        if (sensorComponent != null)
+            sensorComponent.Scan();
+
         stateMachine.Tick(this);
     }
 
