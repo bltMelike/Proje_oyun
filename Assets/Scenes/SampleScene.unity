@@ -169,6 +169,8 @@ MonoBehaviour:
   player: {fileID: 1246526040}
   followDistance: 2
   spawnOffset: {x: -1, y: 0}
+  arriveDistance: 0.4
+  spellDuration: 1.5
 --- !u!195 &9308160
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -203,11 +205,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d9d608d0a92b834fa5dec228cb85088, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GhostVisual
+  idleFrames:
+  - {fileID: -6148862813129731316, guid: 17a1e6f80daa1574ea9f46d08c80f00f, type: 3}
+  sideFrames:
+  - {fileID: -6148862813129731316, guid: 17a1e6f80daa1574ea9f46d08c80f00f, type: 3}
+  upFrames:
+  - {fileID: 983510118028054770, guid: 17a1e6f80daa1574ea9f46d08c80f00f, type: 3}
+  frameRate: 3
   spriteFacesLeft: 0
   minSpeedToFlip: 0.1
-  bobHeight: 0.08
+  bobHeight: 0.05
   bobSpeed: 10
-  tiltAngle: 6
+  tiltAngle: 0
 --- !u!1 &508714583
 GameObject:
   m_ObjectHideFlags: 0
