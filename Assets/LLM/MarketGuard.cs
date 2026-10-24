@@ -11,9 +11,14 @@ public class MarketGuard : MonoBehaviour, INpcActionHandler
 
     public void Handle(string action)
     {
-        if (action == NpcActions.StepAside && moving == null)
+        if (action != NpcActions.StepAside) return;
+        if (asidePoint == null)
+        {
+            Debug.LogError("MarketGuard: Aside Point atanmamış! Inspector'da MarketAsidePoint'i sürükle.");
+            return;
+        }
+        if (moving == null)
             moving = StartCoroutine(MoveAside());
-        // "stay" ise hiçbir şey yapma: görevli yerinde kalır.
     }
 
     private IEnumerator MoveAside()

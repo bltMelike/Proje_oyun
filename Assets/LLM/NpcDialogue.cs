@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 // Oyuncunun yazısını LLM'e gönderir, cevabı gösterir, kararı oyuna uygular.
@@ -15,18 +16,25 @@ public class NpcDialogue : MonoBehaviour
     [SerializeField, TextArea(6, 14)]
     private string systemPrompt =
         "Sen küçük bir mahalle marketinin kapısında duran görevli Hasansın. Oyuncu markete girmek istiyor. " +
-        "Önce oyuncunun tavrını değerlendir: kibar ve makul bir sebep sunuyorsa \"kibar\"; hakaret, tehdit, emir ya da küfür varsa \"kaba\"; konuyla ilgisizse \"alakasiz\". " +
-        "Sadece \"kibar\" ise action \"step_aside\", \"kaba\" ve \"alakasiz\" ise \"stay\" olmalı. " +
-        "Sadece şu JSON biçiminde cevap ver: {\"attitude\":\"kibar|kaba|alakasiz\",\"reply\":\"...\",\"action\":\"step_aside|stay\"}. " +
-        "reply: Hasan olarak oyuncuya söylenecek akıcı Türkçe cevap, en fazla 2 kısa cümle, İngilizce kelime yok. " +
-        "Cevabı oyuncunun söylediğine göre kendin yaz, kalıp cümle kullanma. " +
-        "Eşleşmeler: kibarca izin isteyen oyuncu -> kibar, step_aside; tehdit ya da hakaret eden oyuncu -> kaba, stay; maç, hava gibi konu dışı konuşan oyuncu -> alakasiz, stay.";
+        "Oyuncuya \"siz\" diye hitap et ve oyuncunun cümlesini tekrar etme. " +
+        "Önce oyuncunun tavrını değerlendir: kibar ve makul bir sebep sunuyorsa kibar, hakaret tehdit emir ya da küfür varsa kaba, market ile ilgisiz konuşuyorsa alakasiz. " +
+        "Sadece kibar ise action step_aside, kaba ve alakasiz ise stay olmalı. " +
+        "Sadece JSON ver: {\"attitude\":\"kibar|kaba|alakasiz\",\"reply\":\"...\",\"action\":\"step_aside|stay\"}. " +
+        "reply: Hasan olarak söylenecek akıcı Türkçe, en fazla 2 kısa cümle, İngilizce kelime yok. " +
+        "Aşağıdaki örneklerdeki cümleleri aynen kopyalama, her seferinde oyuncuya göre kendi cümleni kur. " +
+        "Örnek 1 Oyuncu: Merhaba, restoranım için un ve peynir alabilir miyim? Hasan: {\"attitude\":\"kibar\",\"reply\":\"Tabii, buyurun içeri geçin.\",\"action\":\"step_aside\"} " +
+        "Örnek 2 Oyuncu: Çekil şuradan yoksa fena olur! Hasan: {\"attitude\":\"kaba\",\"reply\":\"Böyle konuşana yol vermem.\",\"action\":\"stay\"} " +
+        "Örnek 3 Oyuncu: Bugün hava nasıl sence? Hasan: {\"attitude\":\"alakasiz\",\"reply\":\"Burası market, ne almak istiyorsunuz?\",\"action\":\"stay\"} " +
+        "Örnek 4 Oyuncu: Lütfen içeri girebilir miyim? Hasan: {\"attitude\":\"kibar\",\"reply\":\"Elbette, hoş geldiniz.\",\"action\":\"step_aside\"}";
 
     [Header("Arayüz")]
     [SerializeField] private TMP_InputField input;
     [SerializeField] private Button sendButton;
     [SerializeField] private TMP_Text replyText;
     [SerializeField] private GameObject thinkingIndicator;   // "Düşünüyor..." yazısı
+
+    [Header("Yazarken kilitlenecek oyuncu")]
+    [SerializeField] private OyuncuKontrol playerControl;
 
     private const int MaxHistory = 8;
 
@@ -43,9 +51,23 @@ public class NpcDialogue : MonoBehaviour
         actionHandler = GetComponent<INpcActionHandler>();
         history.Add(new ChatMessage("system", systemPrompt));
         thinkingIndicator.SetActive(false);
+
         sendButton.onClick.AddListener(OnSendClicked);
+        input.onSubmit.AddListener(_ => OnSendClicked());               // Enter ile gönder
+        input.onSelect.AddListener(_ => SetControlsLocked(true));       // kutuya odaklanınca kilitle
+        input.onDeselect.AddListener(_ => SetControlsLocked(false));    // kutudan çıkınca aç
+
+        if (playerControl == null)
+            Debug.LogWarning("NpcDialogue: Player Control atanmamış! Oyuncu yazarken yürümeye devam eder.");
 
         _ = WarmUpAsync();   // modeli arka planda ısıt
+    }
+
+    private void Update()
+    {
+        // Esc: konuşmayı bırak, oyuncuyu serbest bırak.
+        if (Input.GetKeyDown(KeyCode.Escape))
+            ReleaseControls();
     }
 
     // Oyun açılırken modeli sessizce belleğe yükler (ilk soruda uzun beklemeyi önler).
@@ -57,6 +79,32 @@ public class NpcDialogue : MonoBehaviour
             new ChatMessage("user", "merhaba")
         };
         await client.ChatAsync(warm);   // sonuç önemsiz
+    }
+
+    // Panel açılınca yazı kutusuna otomatik odaklan: oyuncu hemen yazabilsin, yürümesin.
+    public async Awaitable FocusInputAsync()
+    {
+        await Awaitable.NextFrameAsync();   // panelin aktif olmasını bekle
+        if (this == null) return;
+        SetControlsLocked(true);
+        input.ActivateInputField();
+    }
+
+    // Oyuncuyu serbest bırak ve kutudan odağı al.
+    // Oyuncuyu serbest bırak ve kutudan odağı al.
+    public void ReleaseControls()
+    {
+        if (input != null) input.DeactivateInputField();
+        if (EventSystem.current != null)
+            EventSystem.current.SetSelectedGameObject(null);
+        SetControlsLocked(false);
+    }
+
+    // Yazarken oyuncu yürümesin: oyuncunun kendi kilit metodunu kullanır.
+    private void SetControlsLocked(bool locked)
+    {
+        if (playerControl != null)
+            playerControl.KontrolAktif(!locked);
     }
 
     private void OnSendClicked()
@@ -80,6 +128,8 @@ public class NpcDialogue : MonoBehaviour
         if (this == null) return;   // sahne değişmiş olabilir
         thinkingIndicator.SetActive(false);
 
+        bool opened = false;
+
         if (!result.Success)
         {
             history.RemoveAt(history.Count - 1);
@@ -95,12 +145,17 @@ public class NpcDialogue : MonoBehaviour
         {
             history.Add(new ChatMessage("assistant", result.Content));
             TrimHistory();
+            Debug.Log($"LLM kararı -> attitude: {decision.attitude}, action: {decision.action}");
             replyText.text = decision.reply;
             actionHandler?.Handle(decision.action);
+            opened = decision.action == NpcActions.StepAside;
         }
 
         busy = false;
         sendButton.interactable = true;
+
+        if (opened) ReleaseControls();          // görevli çekildi: oyuncu serbest
+        else input.ActivateInputField();        // yazmaya devam edebilsin
     }
 
     // Gecikme artmasın diye sadece son mesajları tut (system prompt hep kalır).
