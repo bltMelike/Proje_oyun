@@ -1,0 +1,507 @@
+fileFormatVersion: 2
+guid: 79898de55b2544e468184783ceeea5ad
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 6874262448488936735
+    second: malzemeler (2) 1_0
+  - first:
+      213: 954494986788418387
+    second: malzemeler (2) 1_1
+  - first:
+      213: 6566171663947292561
+    second: malzemeler (2) 1_2
+  - first:
+      213: -3488390610516224735
+    second: malzemeler (2) 1_3
+  - first:
+      213: 6357193692749844139
+    second: malzemeler (2) 1_4
+  - first:
+      213: -5871160298988107622
+    second: malzemeler (2) 1_5
+  - first:
+      213: 3844015854992355982
+    second: malzemeler (2) 1_6
+  - first:
+      213: -4240184763900548520
+    second: malzemeler (2) 1_7
+  - first:
+      213: -3059621771340731586
+    second: malzemeler (2) 1_8
+  - first:
+      213: -7885603830441378284
+    second: malzemeler (2) 1_9
+  - first:
+      213: -5403721364938503448
+    second: malzemeler (2) 1_10
+  - first:
+      213: -1368481232606370612
+    second: malzemeler (2) 1_11
+  - first:
+      213: 6127359003639334771
+    second: malzemeler (2) 1_12
+  - first:
+      213: 3193634085071545348
+    second: malzemeler (2) 1_13
+  - first:
+      213: 8787791726064949554
+    second: malzemeler (2) 1_14
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: malzemeler (2) 1_0
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 117
+        width: 64
+        height: 223
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f157df68649466f50800000000000000
+      internalID: 6874262448488936735
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: malzemeler (2) 1_1
+      rect:
+        serializedVersion: 2
+        x: 355
+        y: 284
+        width: 37
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3533a63222c0f3d00800000000000000
+      internalID: 954494986788418387
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: malzemeler (2) 1_2
+      rect:
+        serializedVersion: 2
+        x: 396
+        y: 282
+        width: 20
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 19f50dbd65abf1b50800000000000000
+      internalID: 6566171663947292561
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: malzemeler (2) 1_3
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 279
+        width: 172
+        height: 79
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1255f56d83fb69fc0800000000000000
+      internalID: -3488390610516224735
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: malzemeler (2) 1_4
+      rect:
+        serializedVersion: 2
+        x: 236
+        y: 205
+        width: 159
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bae45b05bf9493850800000000000000
+      internalID: 6357193692749844139
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: malzemeler (2) 1_5
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 34
+        width: 93
+        height: 83
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a98007790d2758ea0800000000000000
+      internalID: -5871160298988107622
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: malzemeler (2) 1_6
+      rect:
+        serializedVersion: 2
+        x: 156
+        y: 34
+        width: 82
+        height: 109
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e82f9cbbd00b85530800000000000000
+      internalID: 3844015854992355982
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: malzemeler (2) 1_7
+      rect:
+        serializedVersion: 2
+        x: 237
+        y: 99
+        width: 183
+        height: 101
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 85a2fa53c66d725c0800000000000000
+      internalID: -4240184763900548520
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: malzemeler (2) 1_8
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 34
+        width: 38
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e3b2f24a53a0a85d0800000000000000
+      internalID: -3059621771340731586
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: malzemeler (2) 1_9
+      rect:
+        serializedVersion: 2
+        x: 237
+        y: 35
+        width: 39
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 41ef41f8815b09290800000000000000
+      internalID: -7885603830441378284
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: malzemeler (2) 1_10
+      rect:
+        serializedVersion: 2
+        x: 247
+        y: 78
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8eac6a97c002205b0800000000000000
+      internalID: -5403721364938503448
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: malzemeler (2) 1_11
+      rect:
+        serializedVersion: 2
+        x: 277
+        y: 36
+        width: 28
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cc465b8c19d220de0800000000000000
+      internalID: -1368481232606370612
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: malzemeler (2) 1_12
+      rect:
+        serializedVersion: 2
+        x: 489
+        y: 35
+        width: 21
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 377c637bc80c80550800000000000000
+      internalID: 6127359003639334771
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: malzemeler (2) 1_13
+      rect:
+        serializedVersion: 2
+        x: 514
+        y: 32
+        width: 40
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 404e44f9741125c20800000000000000
+      internalID: 3193634085071545348
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: malzemeler (2) 1_14
+      rect:
+        serializedVersion: 2
+        x: 572
+        y: 32
+        width: 39
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 239d730e30284f970800000000000000
+      internalID: 8787791726064949554
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      malzemeler (2) 1_0: 6874262448488936735
+      malzemeler (2) 1_1: 954494986788418387
+      malzemeler (2) 1_10: -5403721364938503448
+      malzemeler (2) 1_11: -1368481232606370612
+      malzemeler (2) 1_12: 6127359003639334771
+      malzemeler (2) 1_13: 3193634085071545348
+      malzemeler (2) 1_14: 8787791726064949554
+      malzemeler (2) 1_2: 6566171663947292561
+      malzemeler (2) 1_3: -3488390610516224735
+      malzemeler (2) 1_4: 6357193692749844139
+      malzemeler (2) 1_5: -5871160298988107622
+      malzemeler (2) 1_6: 3844015854992355982
+      malzemeler (2) 1_7: -4240184763900548520
+      malzemeler (2) 1_8: -3059621771340731586
+      malzemeler (2) 1_9: -7885603830441378284
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

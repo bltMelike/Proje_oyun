@@ -1,0 +1,871 @@
+fileFormatVersion: 2
+guid: ffad90213f1eca94da73925566ef59aa
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 5680780962089290846
+    second: musteri_0
+  - first:
+      213: 2628444266097097389
+    second: musteri_1
+  - first:
+      213: -4349532339014273159
+    second: musteri_2
+  - first:
+      213: 2527779889779151919
+    second: musteri_3
+  - first:
+      213: 1543746990363629558
+    second: musteri_4
+  - first:
+      213: 6599849617936556449
+    second: musteri_5
+  - first:
+      213: 3598532322524559039
+    second: musteri_6
+  - first:
+      213: -4348432400715424029
+    second: musteri_7
+  - first:
+      213: 5456819966400410474
+    second: musteri_8
+  - first:
+      213: -8093257152649194797
+    second: musteri_9
+  - first:
+      213: 4245982605815281759
+    second: musteri_10
+  - first:
+      213: 987729350378466361
+    second: musteri_11
+  - first:
+      213: -8607998878410628232
+    second: musteri_12
+  - first:
+      213: -9172438675096625135
+    second: musteri_13
+  - first:
+      213: -5310513836180170752
+    second: musteri_14
+  - first:
+      213: -6580138347544448513
+    second: musteri_15
+  - first:
+      213: 228315916873487917
+    second: musteri_16
+  - first:
+      213: 2661076223386886529
+    second: musteri_17
+  - first:
+      213: 4122843211699263722
+    second: musteri_18
+  - first:
+      213: -4139440425304041932
+    second: musteri_19
+  - first:
+      213: -7632685833096546490
+    second: musteri_20
+  - first:
+      213: -2973071453550449084
+    second: musteri_21
+  - first:
+      213: 5153096155790027200
+    second: musteri_22
+  - first:
+      213: 6290452907963169698
+    second: musteri_23
+  - first:
+      213: -5238364540647059427
+    second: musteri_24
+  - first:
+      213: 6959854305101911540
+    second: musteri_25
+  - first:
+      213: 7475542036881717262
+    second: musteri_26
+  - first:
+      213: -8509757181624598292
+    second: musteri_27
+  - first:
+      213: 6437339430512098912
+    second: musteri_28
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: musteri_0
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 325
+        width: 52
+        height: 97
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e5c422cdf2036de40800000000000000
+      internalID: 5680780962089290846
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: musteri_1
+      rect:
+        serializedVersion: 2
+        x: 122
+        y: 325
+        width: 51
+        height: 97
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: daa31a8422c1a7420800000000000000
+      internalID: 2628444266097097389
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: musteri_2
+      rect:
+        serializedVersion: 2
+        x: 211
+        y: 325
+        width: 51
+        height: 97
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 977faf9e16b53a3c0800000000000000
+      internalID: -4349532339014273159
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: musteri_3
+      rect:
+        serializedVersion: 2
+        x: 304
+        y: 325
+        width: 51
+        height: 97
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f2499a0ca6a741320800000000000000
+      internalID: 2527779889779151919
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: musteri_4
+      rect:
+        serializedVersion: 2
+        x: 429
+        y: 324
+        width: 51
+        height: 98
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6f7d3b765bd7c6510800000000000000
+      internalID: 1543746990363629558
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: musteri_5
+      rect:
+        serializedVersion: 2
+        x: 521
+        y: 325
+        width: 50
+        height: 97
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1a12b109240679b50800000000000000
+      internalID: 6599849617936556449
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: musteri_6
+      rect:
+        serializedVersion: 2
+        x: 612
+        y: 325
+        width: 52
+        height: 97
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fb676dcd41e80f130800000000000000
+      internalID: 3598532322524559039
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: musteri_7
+      rect:
+        serializedVersion: 2
+        x: 704
+        y: 325
+        width: 53
+        height: 97
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3eede8145c347a3c0800000000000000
+      internalID: -4348432400715424029
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: musteri_8
+      rect:
+        serializedVersion: 2
+        x: 25
+        y: 219
+        width: 53
+        height: 99
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a633e8419d48abb40800000000000000
+      internalID: 5456819966400410474
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: musteri_9
+      rect:
+        serializedVersion: 2
+        x: 122
+        y: 220
+        width: 52
+        height: 98
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3d29474ef79feaf80800000000000000
+      internalID: -8093257152649194797
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: musteri_10
+      rect:
+        serializedVersion: 2
+        x: 212
+        y: 220
+        width: 52
+        height: 98
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f587b1e0fa2ccea30800000000000000
+      internalID: 4245982605815281759
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: musteri_11
+      rect:
+        serializedVersion: 2
+        x: 304
+        y: 220
+        width: 53
+        height: 98
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 93c29876c9e15bd00800000000000000
+      internalID: 987729350378466361
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: musteri_12
+      rect:
+        serializedVersion: 2
+        x: 429
+        y: 219
+        width: 50
+        height: 99
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 873af5190ae3a8880800000000000000
+      internalID: -8607998878410628232
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: musteri_13
+      rect:
+        serializedVersion: 2
+        x: 521
+        y: 221
+        width: 52
+        height: 98
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 110afc66f93f4b080800000000000000
+      internalID: -9172438675096625135
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: musteri_14
+      rect:
+        serializedVersion: 2
+        x: 612
+        y: 220
+        width: 51
+        height: 99
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0081fa36dc34d46b0800000000000000
+      internalID: -5310513836180170752
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: musteri_15
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 220
+        width: 52
+        height: 98
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ff1ffa53907aea4a0800000000000000
+      internalID: -6580138347544448513
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: musteri_16
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 109
+        width: 53
+        height: 101
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d26dfc1ed142b2300800000000000000
+      internalID: 228315916873487917
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: musteri_17
+      rect:
+        serializedVersion: 2
+        x: 117
+        y: 109
+        width: 53
+        height: 101
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 181a637e9ba0ee420800000000000000
+      internalID: 2661076223386886529
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: musteri_18
+      rect:
+        serializedVersion: 2
+        x: 214
+        y: 109
+        width: 54
+        height: 101
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ae817f9ae08473930800000000000000
+      internalID: 4122843211699263722
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: musteri_19
+      rect:
+        serializedVersion: 2
+        x: 308
+        y: 109
+        width: 54
+        height: 101
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4365cd86dd0cd86c0800000000000000
+      internalID: -4139440425304041932
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: musteri_20
+      rect:
+        serializedVersion: 2
+        x: 428
+        y: 108
+        width: 48
+        height: 102
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 647bf1caca0431690800000000000000
+      internalID: -7632685833096546490
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: musteri_21
+      rect:
+        serializedVersion: 2
+        x: 521
+        y: 109
+        width: 50
+        height: 101
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 44e6547d3478db6d0800000000000000
+      internalID: -2973071453550449084
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: musteri_22
+      rect:
+        serializedVersion: 2
+        x: 614
+        y: 108
+        width: 47
+        height: 102
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0c9ab43c6a9738740800000000000000
+      internalID: 5153096155790027200
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: musteri_23
+      rect:
+        serializedVersion: 2
+        x: 709
+        y: 109
+        width: 48
+        height: 101
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2abb77f679d2c4750800000000000000
+      internalID: 6290452907963169698
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: musteri_24
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 5
+        width: 50
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d10dabe44379d47b0800000000000000
+      internalID: -5238364540647059427
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: musteri_25
+      rect:
+        serializedVersion: 2
+        x: 117
+        y: 5
+        width: 50
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4f592189d9e569060800000000000000
+      internalID: 6959854305101911540
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: musteri_26
+      rect:
+        serializedVersion: 2
+        x: 433
+        y: 5
+        width: 52
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e08b5db10e57eb760800000000000000
+      internalID: 7475542036881717262
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: musteri_27
+      rect:
+        serializedVersion: 2
+        x: 618
+        y: 5
+        width: 50
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ce0cf601ee447e980800000000000000
+      internalID: -8509757181624598292
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: musteri_28
+      rect:
+        serializedVersion: 2
+        x: 703
+        y: 5
+        width: 51
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 06ef9460b16065950800000000000000
+      internalID: 6437339430512098912
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      musteri_0: 5680780962089290846
+      musteri_1: 2628444266097097389
+      musteri_10: 4245982605815281759
+      musteri_11: 987729350378466361
+      musteri_12: -8607998878410628232
+      musteri_13: -9172438675096625135
+      musteri_14: -5310513836180170752
+      musteri_15: -6580138347544448513
+      musteri_16: 228315916873487917
+      musteri_17: 2661076223386886529
+      musteri_18: 4122843211699263722
+      musteri_19: -4139440425304041932
+      musteri_2: -4349532339014273159
+      musteri_20: -7632685833096546490
+      musteri_21: -2973071453550449084
+      musteri_22: 5153096155790027200
+      musteri_23: 6290452907963169698
+      musteri_24: -5238364540647059427
+      musteri_25: 6959854305101911540
+      musteri_26: 7475542036881717262
+      musteri_27: -8509757181624598292
+      musteri_28: 6437339430512098912
+      musteri_3: 2527779889779151919
+      musteri_4: 1543746990363629558
+      musteri_5: 6599849617936556449
+      musteri_6: 3598532322524559039
+      musteri_7: -4348432400715424029
+      musteri_8: 5456819966400410474
+      musteri_9: -8093257152649194797
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

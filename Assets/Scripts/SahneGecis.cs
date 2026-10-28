@@ -1,16 +1,32 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class SahneGecisi : MonoBehaviour
 {
-    [SerializeField] private string hedefSahne = "Sahne2";
+    [SerializeField] private string hedefSahne;
+    [SerializeField, TextArea] private string mesaj;
+    [SerializeField] private bool baslangictaAcik = true;
 
+    private bool acik;
     private bool gecti;
+
+    private void Awake()
+    {
+        acik = baslangictaAcik;
+    }
+
+    public void Ac()
+    {
+        acik = true;
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (gecti || !other.CompareTag("Player")) return;
+        if (!acik || gecti || !other.CompareTag("Player")) return;
         gecti = true;
-        SceneManager.LoadScene(hedefSahne);
+
+        var kontrol = other.GetComponent<OyuncuKontrol>();
+        if (kontrol != null) kontrol.KontrolAktif(false);
+
+        EkranGecisi.Ornek.Gecis(hedefSahne, mesaj);
     }
 }
