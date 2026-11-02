@@ -148,7 +148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f439915cc9f2ff4dba89a2a5faa4a05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AnaMenu
-  ilkSahne: SampleScene
+  ilkSahne: Sinematik
 --- !u!4 &387414569
 Transform:
   m_ObjectHideFlags: 0

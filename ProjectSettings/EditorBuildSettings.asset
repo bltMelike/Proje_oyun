@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/AnaMenu.unity
     guid: 3b968c582e935cc47ba6ef5c623e215a
   - enabled: 1
+    path: Assets/Scenes/Sinematik.unity
+    guid: cd2be7410020d3143bb62a1660a79953
+  - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
   - enabled: 1
