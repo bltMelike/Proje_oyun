@@ -7,7 +7,7 @@ using UnityEngine.Networking;
 // Yerel Ollama sunucusuna asenkron istek atar. Ana oyun akışını bloklamaz.
 public class OllamaClient : ILlmClient
 {
-    [Serializable] private class Options { public float temperature = 0.3f; public int num_predict = 120; }
+    [Serializable] private class Options { public float temperature = 0.3f; public int num_predict = 80; public int num_ctx = 2048; }
     [Serializable]
     private class Request
     {
@@ -15,7 +15,7 @@ public class OllamaClient : ILlmClient
         public List<ChatMessage> messages;
         public bool stream = false;
         public string format = "json";      // modeli JSON çıktıya zorlar
-        public string keep_alive = "10m";   // model bellekte kalsın
+        public string keep_alive = "60m";   // model bellekte kalsın
         public Options options = new Options();
     }
     [Serializable] private class Response { public ChatMessage message; }
