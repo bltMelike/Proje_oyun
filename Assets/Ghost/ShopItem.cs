@@ -1,16 +1,18 @@
 using UnityEngine;
 
-// Rafta duran, tıklanınca hayaletin alıp listeden sildiği ürün.
+// Rafta duran ürün. ÇİFT TIKLANINCA hayalet gidip alır, ürün listeden silinir.
 [RequireComponent(typeof(Collider2D))]
 public class ShopItem : MonoBehaviour
 {
     [SerializeField] private string itemName = "Un";            // listedeki adla aynı olmalı
     [SerializeField] private ShoppingList shoppingList;
-    [SerializeField] private Transform approachPoint;           // hayaletin gideceği nokta (NavMesh üzerinde)
+    [SerializeField] private Transform approachPoint;           // boş bırakırsan hayalet doğrudan ürüne gider
     [SerializeField] private bool hideWhenCollected = true;     // alınınca ürün kaybolsun
+    [SerializeField] private float doubleClickWindow = 0.4f;    // iki tık arası en fazla süre (sn)
 
     private static ShopItem pending;   // aynı anda tek bir emir
     private bool collected;
+    private float lastClickTime = -10f;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
     private static void ResetStatics() { pending = null; }
@@ -23,6 +25,13 @@ public class ShopItem : MonoBehaviour
     private void OnMouseDown()
     {
         if (collected || pending != null) return;
+
+        // Çift tık kontrolü: ilk tık sadece kaydedilir.
+        float now = Time.unscaledTime;
+        bool isDoubleClick = now - lastClickTime <= doubleClickWindow;
+        lastClickTime = now;
+        if (!isDoubleClick) return;
+        lastClickTime = -10f;
 
         if (shoppingList == null)
         {
