@@ -5,6 +5,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 // Oyuncunun yazısını LLM'e gönderir, cevabı gösterir, kararı oyuna uygular.
+// Tek prompt + doğrulama katmanı (NpcDecisionGuard).
 public class NpcDialogue : MonoBehaviour
 {
     [Header("Model")]
@@ -14,18 +15,22 @@ public class NpcDialogue : MonoBehaviour
 
     [Header("Kişilik (system prompt)")]
     [SerializeField, TextArea(6, 14)]
-    private string systemPrompt =
-        "Sen küçük bir mahalle marketinin kapısında duran görevli Hasansın. Oyuncu markete girmek istiyor. " +
-        "Oyuncuya \"siz\" diye hitap et ve oyuncunun cümlesini tekrar etme. " +
-        "Önce oyuncunun tavrını değerlendir: kibar ve makul bir sebep sunuyorsa kibar, hakaret tehdit emir ya da küfür varsa kaba, market ile ilgisiz konuşuyorsa alakasiz. " +
-        "Sadece kibar ise action step_aside, kaba ve alakasiz ise stay olmalı. " +
+    private string hasanPrompt =
+        "Sen küçük bir mahalle marketinin kapısındaki görevli Hasansın. Oyuncu markete girmek istiyor. Oyuncuya \"siz\" diye hitap et. " +
         "Sadece JSON ver: {\"attitude\":\"kibar|kaba|alakasiz\",\"reply\":\"...\",\"action\":\"step_aside|stay\"}. " +
-        "reply: Hasan olarak söylenecek akıcı Türkçe, en fazla 2 kısa cümle, İngilizce kelime yok. " +
-        "Aşağıdaki örneklerdeki cümleleri aynen kopyalama, her seferinde oyuncuya göre kendi cümleni kur. " +
-        "Örnek 1 Oyuncu: Merhaba, restoranım için un ve peynir alabilir miyim? Hasan: {\"attitude\":\"kibar\",\"reply\":\"Tabii, buyurun içeri geçin.\",\"action\":\"step_aside\"} " +
-        "Örnek 2 Oyuncu: Çekil şuradan yoksa fena olur! Hasan: {\"attitude\":\"kaba\",\"reply\":\"Böyle konuşana yol vermem.\",\"action\":\"stay\"} " +
-        "Örnek 3 Oyuncu: Bugün hava nasıl sence? Hasan: {\"attitude\":\"alakasiz\",\"reply\":\"Burası market, ne almak istiyorsunuz?\",\"action\":\"stay\"} " +
-        "Örnek 4 Oyuncu: Lütfen içeri girebilir miyim? Hasan: {\"attitude\":\"kibar\",\"reply\":\"Elbette, hoş geldiniz.\",\"action\":\"step_aside\"}";
+        "kibar: oyuncu nazikçe markete girmek istediğini söylüyor (lütfen, rica, miyim, misiniz gibi). Bu durumda action step_aside. " +
+        "kaba: hakaret, tehdit, emir (çekil, aç, geç, çabuk ol) ya da sana ne yapacağını söylemek. Bu durumda action stay. " +
+        "alakasiz: markete girme isteği yok, konu dışı ya da tek kelimelik cevap. Bu durumda action stay. " +
+        "reply: Hasan'ın kısa cevabı, en fazla 2 kısa cümle, doğal Türkçe, İngilizce yok. Kendi adına konuş, oyuncunun cümlesini tekrar etme. " +
+        "Örnek Oyuncu: Merhaba, restoranım için un ve peynir alabilir miyim? Hasan: {\"attitude\":\"kibar\",\"reply\":\"Tabii, buyurun içeri geçin.\",\"action\":\"step_aside\"} " +
+        "Örnek Oyuncu: Lütfen içeri girebilir miyim? Hasan: {\"attitude\":\"kibar\",\"reply\":\"Elbette, hoş geldiniz.\",\"action\":\"step_aside\"} " +
+        "Örnek Oyuncu: Üzgünüm, sinirliydim. Malzeme almam gerekiyor, izin verir misiniz? Hasan: {\"attitude\":\"kibar\",\"reply\":\"Özrünüz kabul, buyurun geçin.\",\"action\":\"step_aside\"} " +
+        "Örnek Oyuncu: Çekil önümden! Hasan: {\"attitude\":\"kaba\",\"reply\":\"Bu tonla konuşursanız geçemezsiniz.\",\"action\":\"stay\"} " +
+        "Örnek Oyuncu: Hadi çabuk ol çekil Hasan: {\"attitude\":\"kaba\",\"reply\":\"Acele ettirmeyin, böyle konuşana yol vermem.\",\"action\":\"stay\"} " +
+        "Örnek Oyuncu: Aptal herif kapıyı aç! Hasan: {\"attitude\":\"kaba\",\"reply\":\"Hakaret ederseniz konuşmam.\",\"action\":\"stay\"} " +
+        "Örnek Oyuncu: Önünden çekilebilirsin mesela. Hasan: {\"attitude\":\"kaba\",\"reply\":\"Kapıyı ne zaman açacağıma ben karar veririm.\",\"action\":\"stay\"} " +
+        "Örnek Oyuncu: Dün akşam maçı izledin mi? Hasan: {\"attitude\":\"alakasiz\",\"reply\":\"Maç sohbetine vaktim yok, ne almak istiyorsunuz?\",\"action\":\"stay\"} " +
+        "Örnek Oyuncu: Evet Hasan: {\"attitude\":\"alakasiz\",\"reply\":\"Neyi onaylıyorsunuz? Ne almak istiyorsunuz?\",\"action\":\"stay\"}";
 
     [Header("Arayüz")]
     [SerializeField] private TMP_InputField input;
@@ -36,11 +41,20 @@ public class NpcDialogue : MonoBehaviour
     [Header("Yazarken kilitlenecek oyuncu")]
     [SerializeField] private OyuncuKontrol playerControl;
 
-    private const int MaxHistory = 8;
+    private const int MaxHistory = 2;    // system prompt hariç son mesaj sayısı
+    private const int MaxAttempts = 2;   // geçersiz JSON gelirse 1 kez otomatik tekrar dene
+
+    private class DecisionAttempt
+    {
+        public bool Success;
+        public NpcDecision Decision;
+        public string Error;
+    }
 
     private ILlmClient client;
     private INpcResponseParser parser;
     private INpcActionHandler actionHandler;
+    private NpcDecisionGuard guard;
     private readonly List<ChatMessage> history = new List<ChatMessage>();
     private bool busy;
 
@@ -49,7 +63,8 @@ public class NpcDialogue : MonoBehaviour
         client = new OllamaClient(endpoint, model, timeoutSeconds);
         parser = new NpcResponseParser(new[] { NpcActions.StepAside, NpcActions.Stay });
         actionHandler = GetComponent<INpcActionHandler>();
-        history.Add(new ChatMessage("system", systemPrompt));
+        guard = new NpcDecisionGuard();
+        history.Add(new ChatMessage("system", hasanPrompt));
         thinkingIndicator.SetActive(false);
 
         sendButton.onClick.AddListener(OnSendClicked);
@@ -65,33 +80,31 @@ public class NpcDialogue : MonoBehaviour
 
     private void Update()
     {
-        // Esc: konuşmayı bırak, oyuncuyu serbest bırak.
         if (Input.GetKeyDown(KeyCode.Escape))
             ReleaseControls();
     }
 
-    // Oyun açılırken modeli sessizce belleğe yükler (ilk soruda uzun beklemeyi önler).
+    // Oyun açılırken modeli sessizce belleğe yükler.
+    // Oyun açılırken modeli Hasan'ın gerçek prompt'uyla ısıtır:
+    // Ollama prompt'u bellekte tutar, ilk mesaj çok daha hızlı gelir.
     private async Awaitable WarmUpAsync()
     {
         var warm = new List<ChatMessage>
         {
-            new ChatMessage("system", "Sadece {\"reply\":\"tamam\"} JSON'unu döndür."),
-            new ChatMessage("user", "merhaba")
+            new ChatMessage("system", hasanPrompt),
+            new ChatMessage("user", "Merhaba")
         };
         await client.ChatAsync(warm);   // sonuç önemsiz
     }
 
-    // Panel açılınca yazı kutusuna otomatik odaklan: oyuncu hemen yazabilsin, yürümesin.
     public async Awaitable FocusInputAsync()
     {
-        await Awaitable.NextFrameAsync();   // panelin aktif olmasını bekle
+        await Awaitable.NextFrameAsync();
         if (this == null) return;
         SetControlsLocked(true);
         input.ActivateInputField();
     }
 
-    // Oyuncuyu serbest bırak ve kutudan odağı al.
-    // Oyuncuyu serbest bırak ve kutudan odağı al.
     public void ReleaseControls()
     {
         if (input != null) input.DeactivateInputField();
@@ -100,7 +113,6 @@ public class NpcDialogue : MonoBehaviour
         SetControlsLocked(false);
     }
 
-    // Yazarken oyuncu yürümesin: oyuncunun kendi kilit metodunu kullanır.
     private void SetControlsLocked(bool locked)
     {
         if (playerControl != null)
@@ -123,42 +135,114 @@ public class NpcDialogue : MonoBehaviour
         thinkingIndicator.SetActive(true);
 
         history.Add(new ChatMessage("user", text));
-        LlmResult result = await client.ChatAsync(history);
 
+        NpcDecision finalDecision = null;
+        string failMessage = null;
+
+        // 1) Tek istek: model tavrı, cevabı ve kararı verir.
+        DecisionAttempt attempt = await RequestDecisionAsync(history);
         if (this == null) return;   // sahne değişmiş olabilir
+
+        if (!attempt.Success)
+        {
+            failMessage = attempt.Error;
+        }
+        else
+        {
+            finalDecision = attempt.Decision;
+
+            // 2) Güvenlik katmanı: mantıksız "step_aside" kararını engelle.
+            string reason;
+            if (guard.ShouldBlock(finalDecision, text, out reason))
+            {
+                Debug.Log($"Guard engelledi: {reason} (modelin kararı: {finalDecision.action})");
+
+                // Nadir durum: reddetme cevabını LLM üretsin (sabit cümle yok).
+                DecisionAttempt refusal = await RequestRefusalAsync(reason);
+                if (this == null) return;
+
+                if (refusal.Success && refusal.Decision.action == NpcActions.Stay)
+                {
+                    finalDecision = refusal.Decision;
+                }
+                else
+                {
+                    finalDecision = null;
+                    failMessage = refusal.Error ?? "Görevli ne dediğini toparlayamadı, tekrar dener misin?";
+                }
+            }
+        }
+
         thinkingIndicator.SetActive(false);
 
         bool opened = false;
 
-        if (!result.Success)
+        if (finalDecision == null)
         {
-            history.RemoveAt(history.Count - 1);
-            replyText.text = "[Sistem] " + result.Error;
-        }
-        else if (!parser.TryParse(result.Content, out NpcDecision decision, out string error))
-        {
-            history.RemoveAt(history.Count - 1);
-            Debug.LogWarning("LLM çıktısı geçersiz: " + error + " | " + result.Content);
-            replyText.text = "[Sistem] Görevli ne dediğini toparlayamadı, tekrar dener misin?";
+            history.RemoveAt(history.Count - 1);   // başarısız soruyu geçmişten çıkar
+            replyText.text = "[Sistem] " + failMessage;
         }
         else
         {
-            history.Add(new ChatMessage("assistant", result.Content));
+            guard.Register(finalDecision);
+            history.Add(new ChatMessage("assistant", JsonUtility.ToJson(finalDecision)));
             TrimHistory();
-            Debug.Log($"LLM kararı -> attitude: {decision.attitude}, action: {decision.action}");
-            replyText.text = decision.reply;
-            actionHandler?.Handle(decision.action);
-            opened = decision.action == NpcActions.StepAside;
+            Debug.Log($"LLM kararı -> attitude: {finalDecision.attitude}, action: {finalDecision.action}");
+            replyText.text = finalDecision.reply;
+            actionHandler?.Handle(finalDecision.action);
+            opened = finalDecision.action == NpcActions.StepAside;
         }
 
         busy = false;
         sendButton.interactable = true;
 
-        if (opened) ReleaseControls();          // görevli çekildi: oyuncu serbest
-        else input.ActivateInputField();        // yazmaya devam edebilsin
+        if (opened) ReleaseControls();
+        else input.ActivateInputField();
     }
 
-    // Gecikme artmasın diye sadece son mesajları tut (system prompt hep kalır).
+    // Modele sorar. Ağ hatasında tekrar denemez, geçersiz JSON'da MaxAttempts kadar dener.
+    private async Awaitable<DecisionAttempt> RequestDecisionAsync(List<ChatMessage> messages)
+    {
+        var attempt = new DecisionAttempt
+        {
+            Error = "Görevli ne dediğini toparlayamadı, tekrar dener misin?"
+        };
+
+        for (int i = 0; i < MaxAttempts; i++)
+        {
+            LlmResult result = await client.ChatAsync(messages);
+            if (this == null) return attempt;
+
+            if (!result.Success)
+            {
+                attempt.Error = result.Error;
+                return attempt;
+            }
+
+            if (parser.TryParse(result.Content, out NpcDecision decision, out string error))
+            {
+                attempt.Success = true;
+                attempt.Decision = decision;
+                return attempt;
+            }
+
+            Debug.LogWarning($"LLM çıktısı geçersiz (deneme {i + 1}/{MaxAttempts}): {error} | {result.Content}");
+        }
+
+        return attempt;
+    }
+
+    // Guard kapıyı açmayı engelleyince: modelden girişi reddeden bir cevap iste.
+    private async Awaitable<DecisionAttempt> RequestRefusalAsync(string reason)
+    {
+        var messages = new List<ChatMessage>(history);
+        messages.Add(new ChatMessage("system",
+            "Oyuncuyu içeri alma, action stay olsun. Sebep: " + reason +
+            " Bunu Hasan olarak kısaca ve sakince söyle. Aynı JSON biçimini kullan."));
+
+        return await RequestDecisionAsync(messages);
+    }
+
     private void TrimHistory()
     {
         while (history.Count > MaxHistory + 1)
