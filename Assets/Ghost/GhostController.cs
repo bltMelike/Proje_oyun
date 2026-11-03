@@ -94,6 +94,21 @@ public class GhostController : MonoBehaviour
             () => stateMachine.ChangeState(pause, this));
         stateMachine.ChangeState(move, this);
     }
+    // Garson modu: verilen noktaya ışınlan ve orada dur (oyuncuyu takip etme).
+    public void HoldAt(Transform point)
+    {
+        Agent.Warp(point.position);
+        stateMachine.ChangeState(new IdleState(), this);
+    }
+
+    // Garson modu: hedefe yürü, varınca dur ve onArrived'ı çağır.
+    public void GoTo(Transform target, Action onArrived)
+    {
+        var idle = new IdleState(onArrived);
+        var move = new MoveToTargetState(target, arriveDistance,
+            () => stateMachine.ChangeState(idle, this));
+        stateMachine.ChangeState(move, this);
+    }
 
     public void ReturnToFollow()
     {

@@ -21,6 +21,7 @@ public class HintBar : MonoBehaviour
     private GameObject panel;
     private TMP_Text label;
     private Coroutine routine;
+    public bool IsShowing => routine != null;
 
     private static HintBar Build()
     {
