@@ -12,6 +12,7 @@ public class GhostController : MonoBehaviour
     [SerializeField] private Vector2 spawnOffset = new Vector2(-1f, 0f);
     [SerializeField] private float arriveDistance = 0.4f;
     [SerializeField] private float spellDuration = 1.5f;
+    [SerializeField] private float fetchPauseSeconds = 0.6f;   // ürünün yanında durma süresi
     [SerializeField] private RaycastSensor sensorComponent;
 
     public static GhostController Instance { get; private set; }
@@ -76,12 +77,21 @@ public class GhostController : MonoBehaviour
         stateMachine.Tick(this);
     }
 
-    // Oyuncunun emri: hedefe yürü, varınca sihir yap, sonra takibe dön.
+    // Oyuncunun emri: hedefe yürü, varınca sihir yap (etrafında dön), sonra takibe dön.
     public void CommandMoveTo(Transform approachPoint, Transform spellCenter, Action onSpellCast)
     {
         var spell = new CastSpellState(spellDuration, spellCenter, onSpellCast, ReturnToFollow);
         var move = new MoveToTargetState(approachPoint, arriveDistance,
             () => stateMachine.ChangeState(spell, this));
+        stateMachine.ChangeState(move, this);
+    }
+
+    // Oyuncunun emri: hedefin yanına yürü, varınca kısa dur (onReached çağrılır), sonra takibe dön.
+    public void CommandFetch(Transform target, Action onReached)
+    {
+        var pause = new FetchPauseState(fetchPauseSeconds, onReached, ReturnToFollow);
+        var move = new MoveToTargetState(target, arriveDistance,
+            () => stateMachine.ChangeState(pause, this));
         stateMachine.ChangeState(move, this);
     }
 

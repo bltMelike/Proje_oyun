@@ -47,7 +47,7 @@ public class ShopItem : MonoBehaviour
 
         pending = this;
         Transform target = approachPoint != null ? approachPoint : transform;
-        ghost.CommandMoveTo(target, transform, OnGhostCollected);
+        ghost.CommandFetch(target, OnGhostCollected);
     }
 
     private void OnGhostCollected()

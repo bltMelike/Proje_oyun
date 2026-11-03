@@ -3,6 +3,7 @@ using UnityEngine;
 
 // Hayaletin hedefin etrafında dönerek sihir yaptığı durum.
 // Dönerken hedefin önünden/arkasından geçiyormuş gibi katman sırası değişir.
+// onCast dönmenin başında çağrılır (hedef hayalet dönerken tepki verebilsin).
 public class CastSpellState : IGhostState
 {
     private readonly float duration;
@@ -46,6 +47,8 @@ public class CastSpellState : IGhostState
 
         Vector2 offset = startPos - center.position;
         angle = Mathf.Atan2(offset.y, offset.x) * Mathf.Rad2Deg;
+
+        onCast?.Invoke();   // sihir başladı: hedef tepki vermeye başlasın
     }
 
     public void Tick(GhostController ghost)
@@ -59,7 +62,7 @@ public class CastSpellState : IGhostState
         pos.z = ghost.transform.position.z;
         ghost.transform.position = pos;
 
-        // Üst yarıda (sin > 0) arabanın arkasında, alt yarıda önünde çiz.
+        // Üst yarıda (sin > 0) hedefin arkasında, alt yarıda önünde çiz.
         if (ghostRenderer != null && targetRenderer != null)
         {
             int targetOrder = targetRenderer.sortingOrder;
@@ -67,10 +70,7 @@ public class CastSpellState : IGhostState
         }
 
         if (timer >= duration)
-        {
-            onCast?.Invoke();
             onFinished?.Invoke();
-        }
     }
 
     public void Exit(GhostController ghost)
