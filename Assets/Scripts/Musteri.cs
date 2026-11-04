@@ -56,19 +56,27 @@ public class Musteri : MonoBehaviour
         }
         benimNoktam.Isgal(true);
 
-        Vector3 hedef = benimNoktam.transform.position;
-        while (Vector2.Distance(transform.position, hedef) > 0.05f)
+        // Önce ara noktalar, en son sandalye
+        var yol = new List<Vector3>();
+        if (benimNoktam.AraNoktalar != null)
+            foreach (var a in benimNoktam.AraNoktalar)
+                if (a != null) yol.Add(a.position);
+        yol.Add(benimNoktam.transform.position);
+
+        foreach (var hedef in yol)
         {
-            Vector2 yon = hedef - transform.position;
-            YurumeKaresiniSec(yon);
-            transform.position = Vector2.MoveTowards(transform.position, hedef, hiz * Time.deltaTime);
-            yield return null;
+            while (Vector2.Distance(transform.position, hedef) > 0.05f)
+            {
+                Vector2 yon = hedef - transform.position;
+                YurumeKaresiniSec(yon);
+                transform.position = Vector2.MoveTowards(transform.position, hedef, hiz * Time.deltaTime);
+                yield return null;
+            }
         }
 
-        transform.position = hedef;
+        transform.position = yol[yol.Count - 1];
         Otur();
     }
-
     private void YurumeKaresiniSec(Vector2 yon)
     {
         Sprite[] set;

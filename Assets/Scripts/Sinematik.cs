@@ -18,7 +18,7 @@ public class Sinematik : MonoBehaviour
     {
         "Bir gün arkadaşımla eve dönerken gözüme bir tabela takıldı; 'MIDIŞ DÖNER'. Aklımdaysa tek bir şey vardı, pizza!",
         "Günler geçerken MIDIŞ DÖNER bizim favori yerimiz olmuştu. Fakat dönerci amca bir gün sessizce aramızdan ayrıldı ama dükkânını bırakıp gidemedi...",
-        "Bir akşam, kapalı dükkânın önünde onunla karşılaştım.Biraz korkmuştum ama içimde de tanıdık bir his vardı. \"Burayı sen devral kızım,\" dedi.",
+        "Bir akşam, kapalı dükkânın önünde onunla karşılaştım.Biraz korkmuştum ama içimde de tanıdık bir his vardı. Bana dükkanının battığını ve bu hale geldiğini söyledi. Onu kurtarmanın tek yolu ise dükkanı ayağa kaldırmak.",
         "Kararımı verdim: burası artık bir pizzacı olacak. MIDIŞ PİZZA!",
         ""
     };

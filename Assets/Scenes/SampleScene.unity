@@ -172,6 +172,7 @@ MonoBehaviour:
   spawnOffset: {x: -1, y: 0}
   arriveDistance: 0.4
   spellDuration: 1.5
+  fetchPauseSeconds: 0.6
   sensorComponent: {fileID: 9308162}
 --- !u!195 &9308160
 NavMeshAgent:

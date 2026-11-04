@@ -2,10 +2,12 @@ using UnityEngine;
 
 public class OturmaNoktasi : MonoBehaviour
 {
-    [Tooltip("İşaretliyse müşteri oturunca sağa bakar. Masanın SAĞINDAki sandalyede kapalı olmalı.")]
     [SerializeField] private bool sagaBakar = true;
+    [Tooltip("Müşteri önce bu noktalardan sırayla geçer, sonra sandalyeye oturur. Engellerin arasından geçen yol çiz.")]
+    [SerializeField] private Transform[] araNoktalar;
 
     public bool SagaBakar => sagaBakar;
+    public Transform[] AraNoktalar => araNoktalar;
     public bool Dolu { get; private set; }
 
     public void Isgal(bool dolu)
