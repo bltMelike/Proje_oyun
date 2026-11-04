@@ -28,5 +28,6 @@ public class Firin : MonoBehaviour
         pizza.transform.position = hedef;
         pizza.DurumDegistir(PizzaDurumu.Hazir);
         pizza.Gizle(false);
+
     }
 }

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 // Restoran bölümünde hayalet garson ile müşteri arasındaki akış.
 // İki karakter de LLM: oyuncu müdahale etmeden kendi aralarında konuşurlar.
@@ -8,7 +9,7 @@ public class WaiterFlow : MonoBehaviour
 
     [Header("Noktalar")]
     [SerializeField] private Transform kasaOnu;                // hayaletin bekleyeceği yer, kasanın önü
-    [SerializeField] private Transform tezgahAlmaNoktasi;      // pişmiş pizzanın geldiği tezgâhın önü
+    [SerializeField] private Transform tezgahAlmaNoktasi;      // pişmiş pizzaların geldiği tezgâhın önü
 
     [Header("Müşteri")]
     [SerializeField] private Transform customer;               // musteri_12
@@ -19,10 +20,8 @@ public class WaiterFlow : MonoBehaviour
     [Header("Menü")]
     [SerializeField] private string[] menu = { "Karışık", "Special" };
 
-    [Header("Pizza görselleri (isteğe bağlı)")]
-    [SerializeField] private GameObject pizzaOnCounter;        // tezgâhtaki pişmiş pizza (alınınca kapanır)
-    [SerializeField] private GameObject carriedPizza;          // hayaletin taşıdığı pizza görseli
-    [SerializeField] private Vector2 carryOffset = new Vector2(0f, 0.6f);
+    [Header("Pizza taşıma")]
+    [SerializeField] private Vector2 carryOffset = new Vector2(0f, 0.6f);   // pizza hayaletin ne kadar üstünde dursun
 
     [Header("Yapay zekâ")]
     [SerializeField] private string endpoint = "http://localhost:11434/api/chat";
@@ -66,23 +65,32 @@ public class WaiterFlow : MonoBehaviour
     private LlmAgent ghostAgent;
     private LlmAgent customerAgent;
     private bool pizzaReady;
+    private Pizza readyPizza;      // pişmiş pizza (Firin haber verir)
     private bool carrying;
     private string chosenPizza;
+    private string servedPizza = "";      // hayaletin getirdiği pizza türü
+    private bool servedCorrect = true;    // sipariş ile aynı mı
 
-    // Müşterinin seçtiği pizza: "Karışık" ya da "Special" (pizza yapma kodu doğru pizzayı kontrol etmek isterse).
+    // Müşterinin seçtiği pizza: "Karışık" ya da "Special".
     public string ChosenPizza => chosenPizza;
 
     private void Awake()
     {
         Instance = this;
-        if (carriedPizza != null) carriedPizza.SetActive(false);
 
         var client = new OllamaClient(endpoint, model, timeoutSeconds);
         ghostAgent = new LlmAgent(client, ghostPersona);
         customerAgent = new LlmAgent(client, customerPersona);
     }
 
-    // Pizza yapma kodu, pişmiş pizza tezgâha gelince bunu çağırmalı.
+    // Fırın, pişmiş pizza tezgâha gelince bunu çağırır.
+    public void NotifyPizzaReady(Pizza pizza)
+    {
+        readyPizza = pizza;
+        pizzaReady = true;
+    }
+
+    // Pizza nesnesi olmadan haber verme (test için).
     public void NotifyPizzaReady()
     {
         pizzaReady = true;
@@ -95,8 +103,9 @@ public class WaiterFlow : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (carrying && carriedPizza != null && ghost != null)
-            carriedPizza.transform.position = ghost.transform.position + (Vector3)carryOffset;
+        // Taşınan pizza hayaletin üstünde durur.
+        if (carrying && readyPizza != null && ghost != null)
+            readyPizza.transform.position = ghost.transform.position + (Vector3)carryOffset;
     }
 
     private async Awaitable RunAsync()
@@ -164,7 +173,8 @@ public class WaiterFlow : MonoBehaviour
         if (this == null) return;
 
         // 7) Teslim cümleleri (hayalet ve müşteri) hayalet yürürken arka planda hazırlanır.
-        Pending serve = Request(ghostAgent, ServeSituation(chosenPizza), false);
+        EvaluateServedPizza();
+        Pending serve = Request(ghostAgent, ServeSituation(chosenPizza, servedPizza, servedCorrect), false);
         var thanks = new Pending();
         _ = ThanksChainAsync(serve, thanks);
 
@@ -187,7 +197,6 @@ public class WaiterFlow : MonoBehaviour
         // 8) Kasanın önüne dön ve oyunu bitir.
         await GoToAsync(kasaOnu);
         if (this == null) return;
-        EndScreen.Show("OYUN BİTTİ", "Pizza dükkânı açıldı, müşteri mutlu ve hayalet harika bir garson oldu!\nOynadığın için teşekkürler.");
     }
 
     // ---------- Durum cümleleri (LLM'e verilen bağlam) ----------
@@ -211,14 +220,23 @@ public class WaiterFlow : MonoBehaviour
                " pizza. Kasadaki ana karaktere (arkadaşına) siparişi söyle ve pizzayı hazırlamasını iste.";
     }
 
-    private string ServeSituation(string pizza)
+    private string ServeSituation(string ordered, string served, bool correct)
     {
-        return "Pişmiş " + pizza + " pizzayı müşterinin masasına getirdin. Pizzayı ver ve afiyet olsun de.";
+        if (correct || string.IsNullOrEmpty(served))
+            return "Pişmiş " + ordered + " pizzayı müşterinin masasına getirdin. Pizzayı ver ve afiyet olsun de.";
+
+        return "Müşteri " + ordered + " pizza istemişti ama sen yanlışlıkla " + served +
+               " pizza getirdin ve bunun farkında değilsin. " + served + " pizzayı neşeyle sun, adını söyle.";
     }
 
-    private string ThanksSituation(string serveLine)
+    private string ThanksSituation(string serveLine, string ordered, string served, bool correct)
     {
-        return "Garson hayalet pizzanı getirdi ve şunu dedi: \"" + serveLine + "\" Teşekkür et ve pizzayı kısaca öv.";
+        if (correct || string.IsNullOrEmpty(served))
+            return "Garson hayalet siparişin olan " + ordered + " pizzayı getirdi ve şunu dedi: \"" + serveLine +
+                   "\" Sen sadece teşekkür et ve pizzayı kısaca öv. 'Afiyet olsun' deme, garsonun cümlesini tekrar etme.";
+
+        return "Sen " + ordered + " pizza istemiştin ama garson " + served + " pizza getirdi ve şunu dedi: \"" + serveLine +
+               "\" Bu yanlış pizza! Memnun değilsin: kibarca ama net şekilde itiraz et, " + ordered + " istediğini söyle.";
     }
 
     // ---------- Yardımcılar ----------
@@ -246,7 +264,7 @@ public class WaiterFlow : MonoBehaviour
             if (this == null) return;
         }
         string serveLine = serve.Result.Success ? serve.Result.Reply : "Pizzanı getirdim, afiyet olsun.";
-        thanks.Result = await customerAgent.SpeakAsync(ThanksSituation(serveLine), false);
+        thanks.Result = await customerAgent.SpeakAsync(ThanksSituation(serveLine, chosenPizza, servedPizza, servedCorrect), false);
         thanks.Done = true;
     }
 
@@ -275,9 +293,25 @@ public class WaiterFlow : MonoBehaviour
     private async Awaitable SayAgent(string speaker, AgentResult result)
     {
         if (result != null && result.Success)
-            await Say(speaker, result.Reply);
+        {
+            string text = result.Reply;
+            if (speaker == "Müşteri") text = RemoveAfiyet(text);
+            await Say(speaker, text);
+        }
         else
             await Say("Sistem", "Yapay zekâ cevap veremedi: " + (result != null ? result.Error : "bilinmeyen hata"));
+    }
+
+    // Müşteri "afiyet olsun" demesin: bu ifadeyi içeren cümleleri siler.
+    private string RemoveAfiyet(string text)
+    {
+        var parts = System.Text.RegularExpressions.Regex.Split(text, @"(?<=[.!?])\s+");
+        var kept = new System.Collections.Generic.List<string>();
+        foreach (string part in parts)
+            if (!part.ToLowerInvariant().Contains("afiyet")) kept.Add(part);
+
+        string cleaned = string.Join(" ", kept).Trim();
+        return cleaned.Length > 0 ? cleaned : "Teşekkür ederim!";
     }
 
     private async Awaitable GoToAsync(Transform target)
@@ -314,13 +348,31 @@ public class WaiterFlow : MonoBehaviour
         return false;
     }
 
+    // Pizza hazır olana kadar bekler. Hem Fırın'ın haberini hem de sahnedeki pişmiş pizzayı kontrol eder.
     private async Awaitable WaitForPizzaAsync()
     {
-        pizzaReady = false;
+        float checkTimer = 0f;
         while (!pizzaReady)
         {
             if (allowDebugKey && Input.GetKeyDown(debugPizzaReadyKey))
                 pizzaReady = true;
+
+            // Her 0.3 saniyede sahnede pişmiş (Hazir) pizza var mı diye bak.
+            checkTimer += Time.deltaTime;
+            if (checkTimer >= 0.3f)
+            {
+                checkTimer = 0f;
+                foreach (Pizza p in FindObjectsByType<Pizza>(FindObjectsSortMode.None))
+                {
+                    if (p.Durum == PizzaDurumu.Hazir)
+                    {
+                        readyPizza = p;
+                        pizzaReady = true;
+                        break;
+                    }
+                }
+            }
+
             await Awaitable.NextFrameAsync();
             if (this == null) return;
         }
@@ -330,20 +382,49 @@ public class WaiterFlow : MonoBehaviour
     private Transform MakeServicePoint()
     {
         var go = new GameObject("ServisNoktasi");
-        go.transform.position = customer.position + (Vector3)serviceOffset;
+        Vector3 wanted = customer.position + (Vector3)serviceOffset;
+        // İstenen nokta masanın içine düşerse en yakın yürünebilir noktayı kullan.
+        if (NavMesh.SamplePosition(wanted, out NavMeshHit hit, 2f, NavMesh.AllAreas))
+            wanted = hit.position;
+        go.transform.position = wanted;
         return go.transform;
+    }
+
+    // Tezgâhtan alınan pizzanın türünü müşterinin siparişiyle karşılaştırır.
+    private void EvaluateServedPizza()
+    {
+        servedPizza = readyPizza != null ? TypeName(readyPizza.Tur.ToString()) : "";
+        // Pizza nesnesi yoksa (P tuşu testi) doğru kabul edilir.
+        servedCorrect = string.IsNullOrEmpty(servedPizza) || servedPizza == chosenPizza;
+        Debug.Log("Sipariş: " + chosenPizza + " | Getirilen: " + servedPizza + " | Doğru mu: " + servedCorrect);
+    }
+
+    private string TypeName(string raw)
+    {
+        string t = raw.ToLowerInvariant();
+        if (t.Contains("kar")) return "Karışık";
+        if (t.Contains("spe")) return "Special";
+        return raw;
     }
 
     private void PickUpPizza()
     {
         carrying = true;
-        if (pizzaOnCounter != null) pizzaOnCounter.SetActive(false);
-        if (carriedPizza != null) carriedPizza.SetActive(true);
+        if (readyPizza != null)
+        {
+            var col = readyPizza.GetComponent<Collider2D>();
+            if (col != null) col.enabled = false;               // taşınırken tıklanmasın
+            readyPizza.DurumDegistir(PizzaDurumu.Alindi);
+        }
     }
 
     private void DropPizza()
     {
         carrying = false;
-        if (carriedPizza != null) carriedPizza.SetActive(false);
+        if (readyPizza != null)
+        {
+            readyPizza.Gizle(true);                              // müşteri pizzayı aldı
+            readyPizza = null;
+        }
     }
 }
