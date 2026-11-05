@@ -65,17 +65,10 @@ Unity 6.3 LTS (6000.3.25f1) · 2D · Yerel LLM (Ollama) · NavMesh
 | Ekip | nisanrcap, bltMelike |
 | Repo | https://github.com/bltMelike/Proje_oyun.git |
 | Ders | Kocaeli Üniversitesi, Teknoloji Fakültesi, Bilişim Sistemleri Mühendisliği, Yazılım Geliştirme Laboratuvarı-I, Proje-1 |
-| Ekip üyeleri | ✏️ Ad Soyad (nisanrcap), ✏️ Ad Soyad (bltMelike) |
-| Tarih | ✏️ Kasım 2026 |
-| Oyun süresi | yaklaşık 3 dakika |
-
-✏️ = senin dolduracağın yer. Teslimden önce tüm ✏️ işaretlerini sil.
-
+| Ekip üyeleri | Nisanur ÇAP (nisanrcap), Melike BULUT (bltMelike) |
 ---
 
-## 1. Giriş: Problem, Amaç ve Senaryo
-
-**Problem.** Modern oyunlarda yapay zekâ, ortamı algılayıp kendi başına karar veren karakterlerden ve oyuncuyla serbest metinle konuşabilen NPC'lerden oluşur. Bu iki bileşeni tek bir macera oyununda, birbirinden bağımsız ve hataya dayanıklı biçimde birleştirmek gerekir. Özellikle büyük dil modelinin (LLM) ürettiği serbest metnin oyun durumunu **güvenilir ve tekrarlanabilir** biçimde değiştirmesi zordur.
+## 1. Giriş: Amaç ve Senaryo
 
 **Amaç.** Unity'de 2D bir macera oyunu geliştirmek. Oyunda: (1) **NavMesh** tabanlı otonom bir yapay zekâ kahraman (hayalet arkadaş) ve (2) **yerel çalışan bir LLM** (Ollama, `qwen2.5:3b`) ile konuşan NPC'ler bulunur. LLM çıktısı yapılandırılmış JSON olarak ayrıştırılır ve oyun durumunu değiştirir (kapının açılması, siparişin belirlenmesi, oyunun bitmesi). Bulut tabanlı hiçbir yapay zekâ servisi kullanılmamıştır. Pekiştirmeli öğrenme (ML-Agents) kullanılmamış, otonom kahramanın karar mantığı **durum makinesi** ile tasarlanmıştır.
 
@@ -114,14 +107,18 @@ Oyuncu, ölen Rıfkı Amca'nın "Midiş Döner" dükkânını devralan genç bir
 Not: Ollama kapalıyken oyun çökmez. Yapay zekâ gereken yerlerde ekranda "Yapay zekâ sunucusuna ulaşılamadı. Ollama açık mı?" mesajı görünür.
 
 ## 4. Kontroller
-✏️ (Yürüme tuşları, tıklama, çift tıklama, Enter, H yönergesi vb. doldur.)
+
+WASD / Oklar: Karakteri hareket ettirme
+E: Tezgâhta pizza seçimi ve NPC'ler ile etkileşime girme
+Fare Tıklaması: Pizzayı fırına koyma / Hayalete nesne gösterme / Eşya seçme
+Enter: Sohbet ekranında LLM'e mesaj gönderme
 
 ## 5. Ödev Gereksinimlerinin Karşılanması
 
 | Gereksinim | Nasıl karşılandı | Nerede |
 |---|---|---|
 | Otonom yol bulma (NavMesh) | Hayalet `NavMeshAgent` ile gerçek yol bulur, masalar ve engeller NavMesh'ten çıkarıldı | `GhostController`, `NavMesh` nesneleri |
-| Raycast sensörü | ✏️ (sensörün ne yaptığını yaz) | `RaycastSensor` |
+| Raycast sensörü | Hayaletin etrafındaki engelleri algılamasını sağlar | `RaycastSensor` |
 | Durum makinesi | State Pattern, 5 durum | Bölüm 7 |
 | Oyuncu hayaleti fiziksel engeli aşması için yönlendirir | Arabaya tıklayınca hayalet arabayı korkutup kaçırır | `CastSpellState`, `CarController` |
 | Yerel LLM NPC, serbest metin | Hasan, Rıfkı Amca (oyuncuyla), garson hayalet ve müşteri (kendi aralarında) | Bölüm 8 |
@@ -160,7 +157,7 @@ Not: Ollama kapalıyken oyun çökmez. Yapay zekâ gereken yerlerde ekranda "Yap
 - **S (tek sorumluluk):** Her durum sınıfı tek davranıştan sorumludur. `OllamaClient` yalnızca iletişimi, `NpcResponseParser` yalnızca ayrıştırmayı yapar.
 - **O (açık/kapalı):** Yeni bir hayalet davranışı eklemek için mevcut durumlar değiştirilmez, yeni `IGhostState` sınıfı yazılır (ör. `FetchPauseState`, `IdleState` sonradan eklendi).
 - **D (bağımlılığı tersine çevirme):** `GhostController` somut durumlara değil `IGhostState` arayüzüne bağlıdır.
-- ✏️ Kendi gözlemlerini ekle (ör. `IFearable` arayüzü).
+- I (Interface Segregation / Arayüz Ayrımı): Arabanın korkutulabilmesi için IFearable arayüzü yazılmış, CarController bu arayüzü uygulayarak hayalet kodunun doğrudan arabaya bağımlı olmasını engellemiştir.
 
 ## 7. Hayalet Yapay Zekâsı
 
@@ -168,7 +165,7 @@ Not: Ollama kapalıyken oyun çökmez. Yapay zekâ gereken yerlerde ekranda "Yap
 Hayalet `NavMeshAgent` kullanır. Ortam, NavMeshPlus (2D) ile hazırlanmıştır. Masalar, tezgâhlar ve engeller `Navigation Modifier → Not Walkable` ile yürünemez yapılmıştır. Böylece hayalet, taşıdığı pizzayla masaların etrafından dolaşır.
 
 ### 7.2 Raycast sensörü
-✏️ (Sensör nerede? Kaç birim ileri bakıyor? Hangi katmanı (Obstacle) algılıyor? Algılayınca ne yapıyor? Birkaç cümle.)
+Hayaletin ön kısmına yerleştirilen RaycastSensor, ileri yönde X birim (örn. 2 birim) ray atar. 'Obstacle' katmanını (Layer) tarar. Bir engel algıladığında otonom ajan hızını keser veya durum makinesine sinyal göndererek ilgili aksiyonu tetikler.
 
 ### 7.3 Durum makinesi
 ```mermaid
@@ -232,7 +229,7 @@ sequenceDiagram
 
 ### 8.1 Genel
 - **Model:** `qwen2.5:3b` (Ollama, yerel). Denenenler: `llama3.2:3b` ve `gemma2:2b` (Türkçe kalitesi zayıf), `qwen2.5:7b` (CPU'da cevap süresi yaklaşık 25 sn, çok yavaş). Seçilen model 5–20 sn aralığındadır.
-- **Seçim gerekçesi:** Donanım: ✏️ (işlemci, RAM, ekran kartı var mı yaz). Ekran kartı olmadığı için model CPU'da çalışır (`ollama ps`: %100 CPU). Büyük model (7B) cevap süresini kabul edilemez uzatır, 1–2B modeller ise Türkçeyi zayıf kullanır. 3B, kalite ve hız arasındaki dengeyi sağlar.
+- **Seçim gerekçesi:** Donanım: Testler Intel Core i5 işlemcili, 16 GB RAM'e sahip ve harici ekran kartı bulunmayan (dahili Intel Iris Xe Grafik) geliştirici bilgisayarında gerçekleştirilmiştir. Ekran kartı olmadığı için model CPU'da çalışır (`ollama ps`: %100 CPU). Büyük model (7B) cevap süresini kabul edilemez uzatır, 1–2B modeller ise Türkçeyi zayıf kullanır. 3B, kalite ve hız arasındaki dengeyi sağlar.
 - **Ayarlar:** `temperature 0.3`, `num_predict 80`, `num_ctx 2048`, `keep_alive 60m`, `format json`.
 - **NPC'ler:**
 
@@ -267,7 +264,7 @@ Tüm istekler `Awaitable` ile gönderilir ve oyun donmaz. Beklerken ekranda "dü
 
 **Hasan (bekçi)**
 ```
-✏️ NpcDialogue.cs içindeki hasanPrompt metnini buraya yapıştır
+Sen küçük bir mahalle marketinin kapısındaki görevli Hasansın. Oyuncu markete girmek istiyor. Oyuncuya "siz" diye hitap et. Sadece JSON ver: {"attitude":"kibar|kaba|alakasiz","reply":"...","action":"step_aside|stay"}. kibar: oyuncu nazikçe markete girmek istediğini söylüyor (lütfen, rica, miyim, misiniz gibi). Bu durumda action step_aside. kaba: hakaret, tehdit, emir (çekil, aç, geç, çabuk ol) ya da sana ne yapacağını söylemek. Bu durumda action stay. alakasiz: markete girme isteği yok, konu dışı ya da tek kelimelik cevap. Bu durumda action stay. reply: Hasan'ın kısa cevabı, en fazla 2 kısa cümle, doğal Türkçe, İngilizce yok. Kendi adına konuş, oyuncunun cümlesini tekrar etme. Örnek Oyuncu: Merhaba, restoranım için un ve peynir alabilir miyim? Hasan: {"attitude":"kibar","reply":"Tabii, buyurun içeri geçin.","action":"step_aside"} Örnek Oyuncu: Lütfen içeri girebilir miyim? Hasan: {"attitude":"kibar","reply":"Elbette, hoş geldiniz.","action":"step_aside"} Örnek Oyuncu: Üzgünüm, sinirliydim. Malzeme almam gerekiyor, izin verir misiniz? Hasan: {"attitude":"kibar","reply":"Özrünüz kabul, buyurun geçin.","action":"step_aside"} Örnek Oyuncu: Çekil önümden! Hasan: {"attitude":"kaba","reply":"Bu tonla konuşursanız geçemezsiniz.","action":"stay"} Örnek Oyuncu: Hadi çabuk ol çekil Hasan: {"attitude":"kaba","reply":"Acele ettirmeyin, böyle konuşana yol vermem.","action":"stay"} Örnek Oyuncu: Aptal herif kapıyı aç! Hasan: {"attitude":"kaba","reply":"Hakaret ederseniz konuşmam.","action":"stay"} Örnek Oyuncu: Önünden çekilebilirsin mesela. Hasan: {"attitude":"kaba","reply":"Kapıyı ne zaman açacağıma ben karar veririm.","action":"stay"} Örnek Oyuncu: Dün akşam maçı izledin mi? Hasan: {"attitude":"alakasiz","reply":"Maç sohbetine vaktim yok, ne almak istiyorsunuz?","action":"stay"} Örnek Oyuncu: Evet Hasan: {"attitude":"alakasiz","reply":"Neyi onaylıyorsunuz? Ne almak istiyorsunuz?","action":"stay"}
 ```
 
 **Garson hayalet**
@@ -277,8 +274,10 @@ Sen Midiş Pizza restoranında çalışan, tatlı ve nazik bir hayalet garsonsun
 
 **Müşteri**
 ```
-Sen Midiş Pizza restoranında masaya oturmuş bir müşterisin ve garson hayaletle konuşuyorsun. Doğal, kısa, günlük Türkçe konuşursun. Menüde iki pizza var: karışık ve special. Siparişi sen seçersin. Sadece JSON ver: {"reply":"...","pizza":"karisik|special"}. reply: en fazla 2 kısa cümle, İngilizce kelime ve emoji yok. Örnek cümleleri aynen kopyalama, kendi sözlerinle konuş. Sipariş verirken pizza alanı, reply içinde söylediğin pizzayla aynı olmalı. Siparişin dışındaki durumlarda pizza alanını boş bırak. Garson istediğin pizzayı getirdiyse teşekkür et ve pizzayı öv. "Afiyet olsun" deme, bu garsonun sözüdür; yemeği yiyen sensin. Garson yanlış pizza getirdiyse teşekkür etme: kibarca ama net itiraz et ve istediğin pizzayı söyle.
-(Ardından üç örnek durum gelir; GarsonAkisi → Customer Persona alanındaki metinle aynıdır.)
+Sen Midiş Pizza restoranında masaya oturmuş bir müşterisin ve garson hayaletle konuşuyorsun. Doğal, kısa, günlük Türkçe konuşursun. Menüde iki pizza var: karışık ve special. Siparişi sen seçersin. Sadece JSON ver: {"reply":"...","pizza":"karisik|special"}. reply: en fazla 2 kısa cümle, İngilizce kelime ve emoji yok. Örnek cümleleri aynen kopyalama, kendi sözlerinle konuş. Sipariş verirken pizza alanı, reply içinde söylediğin pizzayla aynı olmalı. Siparişin dışındaki durumlarda pizza alanını boş bırak. Garson istediğin pizzayı getirdiyse teşekkür et ve pizzayı öv. "Afiyet olsun" deme, bu garsonun sözüdür; yemeği yiyen sensin. Garsonun cümlesini tekrar etme. Garson yanlış pizza getirdiyse teşekkür etme: kibarca ama net itiraz et ve istediğin pizzayı söyle.
+Örnek durum: Garson ne istediğini sordu. Müşteri: {"reply":"Bugün çok acıktım, karışık getirir misin?","pizza":"karisik"}
+Örnek durum: Garson istediğin pizzayı getirdi. Müşteri: {"reply":"Ellerine sağlık, harika kokuyor!","pizza":""}
+Örnek durum: Garson yanlış pizza getirdi. Müşteri: {"reply":"Ama ben special istemiştim, bu yanlış olmuş.","pizza":""}
 ```
 
 **Rıfkı Amca**
@@ -417,10 +416,8 @@ sequenceDiagram
 
 | Üye | Sorumluluk | Commit sayısı |
 |---|---|---|
-| nisanrcap | Hayalet yapay zekâsı (NavMesh, Raycast, durum makinesi), LLM NPC'ler (Hasan, garson, müşteri, Rıfkı Amca), market ve restoran akışı | ✏️ |
-| bltMelike | Sahneler, oyuncu karakteri, ana menü ve sinematik, pizza yapımı | ✏️ |
-
-✏️ Commit sayılarını GitHub → Insights → Contributors sayfasından yaz.
+| nisanrcap | Hayalet yapay zekâsı (NavMesh, Raycast, durum makinesi), LLM NPC'ler (Hasan, garson, müşteri, Rıfkı Amca), market ve restoran akışı | 20 |
+| bltMelike | Sahneler, oyuncu karakteri,LLM NPC'ler(müşteri,Rıfkı Amca), ana menü ve sinematik, pizza yapımı | 20 |
 
 ## 12. Ekran Görüntüleri
 ✏️ Görselleri repoda `docs/` klasörüne koy ve şu biçimde ekle: `![Açıklama](docs/dosya-adi.png)`
@@ -447,14 +444,12 @@ sequenceDiagram
 - CPU'da cevap süresi 5–20 sn'dir. Hayalet yürürken cümleler önceden hazırlanarak (prefetch) bu bekleme gizlendi.
 - Menüde yalnızca iki pizza vardır (Karışık, Special).
 - Pekiştirmeli öğrenme kullanılmadı. Hayalet kararları durum makinesi ve NavMesh ile verilir, "öğrenmez".
-- ✏️ Kendi sınırlılıklarını ekle.
 
 ### Olası geliştirmeler
 - GPU destekli veya daha büyük bir model ile cevap süresini kısaltmak ve diyalog kalitesini artırmak.
 - Daha fazla pizza çeşidi, birden fazla müşteri ve puanlama sistemi.
 - Hayalet için ML-Agents ile pekiştirmeli öğrenme (ödül fonksiyonu tanımlayarak).
 - Ses (sesli diyalog, konuşma sentezi).
-- ✏️ Kendi fikirlerini ekle.
 
     Idle --> MoveToTarget: GoTo
     MoveToTarget --> Idle: Varıldı
