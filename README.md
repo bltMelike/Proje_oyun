@@ -1,21 +1,24 @@
 # Proje_oyun
-# Midiş Pizza
+# MIDIŞ PİZZA
 
 **Yazılım Geliştirme Laboratuvarı-I, Proje-1** · Kocaeli Üniversitesi, Bilişim Sistemleri Mühendisliği
-**Ekip:** nisanrcap, bltMelike · **Tarih:** Kasım 2026
-**Motor:** Unity 6.3 LTS (6000.3.25f1), 2D · **Yerel LLM:** Ollama + qwen2.5:3b
+**Ekip:** Nisanur Çap, Melike Bulut 
+**Oyun Motoru:** Unity 6.3 LTS (6000.3.25f1), 2D · **Yerel LLM:** Ollama + qwen2.5:3b
 
 ---
 
 ## 1. Giriş
 
-### 1.1 Problem ve amaç
-Proje, bir Unity macera oyununda iki bağımsız yapay zekâ bileşenini birleştirir:
-1. **NavMesh tabanlı otonom hayalet** (companion): oyuncuyu takip eder, engelleri aşar, garsonluk yapar.
-2. **Yerel LLM ile çalışan NPC'ler**: oyuncu ve karakterler serbest metinle konuşur, model JSON döndürür, oyun durumu bu JSON'a göre değişir.
+### 1.1 Proje Özeti
+Proje, Unity 2D ile yaptığımız bir pizza dükkanı oyunu. Oyunda iki bağımsız yapay zeka bileşeni var:
+
+1. **NavMesh tabanlı otonom hayalet (companion):** Oyuncuyu takip eder, engelleri aşar, garsonluk yapar.
+2. **Yerel LLM ile çalışan NPC'ler:** Oyuncu karakterlerle serbest metinle konuşur, model JSON döndürür ve oyun durumu bu JSON'a göre değişir.
+
+Oyunda dükkanın eski sahibi Rıfkı Amca ortadan kayboluyor ve hayalet olarak karşımıza çıkıyor. Oyuncu pizzaları yaparken hayalet yardımcı müşterilere servis yapar. Sipariş teslim edilince Rıfkı Amca canlanır ve amca ikna olursa oyun mutlu biter. NPC'ler**: oyuncu ve karakterler serbest metinle konuşur, model JSON döndürür, oyun durumu bu JSON'a göre değişir.
 
 ### 1.2 Senaryo
-(Kendi cümlelerinle 4-5 cümle yaz.) Kız, otobüsten Midiş Döner'i görüp pizza yapmayı hayal eder. Dönerci Rıfkı Amca ölür ve hayalet olarak kıza dükkânı devreder. Oyuncu hayaletle araba engelini aşar, bekçi Hasan'ı ikna eder, marketten malzeme toplar, restoranda pizza yapıp hayalet garsonla müşteriye servis eder. Final: Rıfkı Amca'ya dükkânı beğenip beğenmediği sorulur, cevaba göre oyun biter.
+Oyuncu Kız arkadaşı ile birlikte eve dönerken otobüs camından MIDIŞ Döner tabelasını görür. O an aç olan karakterimiz ise aklından sadece pizza geçirmiştir. Gel zaman git zaman MIDIŞ Döner karakterimizin vazgeçilmezi olmuştur. Dönerci Rıfkı Amca günün birinde ortadan kaybolur ve hayalet olarak kıza dükkânı devreder. Rıfkı Amca'nın kurtulması ve dükkan artık karakterimizin elindedir. Oyuncu hayaletle araba engelini aşar, bekçi Hasan'ı ikna eder, marketten malzeme toplar, restoranda pizza yapıp hayalet garsonla müşteriye servis eder. Final: Rıfkı Amca'ya dükkânı beğenip beğenmediği sorulur, cevaba göre oyun biter.
 
 ### 1.3 Oyun akışı
 Ana Menü → Sinematik → Sokak → Sahne2 (araba engeli + bekçi Hasan) → Market → Restoran → Final (Rıfkı Amca)
@@ -31,9 +34,9 @@ Ana Menü → Sinematik → Sokak → Sahne2 (araba engeli + bekçi Hasan) → M
 |---|---|
 | WASD / Oklar | Yürüme |
 | E | Tezgâhta pizza seç, NPC ile etkileşim |
-| Fare tıklaması | Pizzayı fırına koy / hayalete nesne göster |
-| H / ? | Yönerge paneli |
-| Esc | Menü / geri |
+| Fare tıklaması | Pizzayı fırına koy / Hayalete nesne göster |
+| H | Yönerge paneli |
+| Esc | Menü / Geri |
 | Enter | Sohbette mesaj gönder |
 
 ---
@@ -179,19 +182,13 @@ Ana menü, sinematik, araba olayı, Hasan sohbeti, "Düşünüyor...", hata mesa
 
 ## 8. Sonuç ve Tartışma
 **Başarılar:** gerçek NavMesh yol bulma, tamamen yerel LLM, JSON ile oyun durumu tetikleme, çökmeyen hata yönetimi.
-**Sınırlılıklar:** 3B model bazen rolünden çıkar, CPU'da 5-20 sn gecikme, Türkçe akıcılık sınırlı.
+**Sınırlılıklar:** CPU'da 5-20 sn gecikme, Türkçe akıcılık sınırlı.
 **Geliştirmeler:** daha büyük model, ses, daha fazla müşteri ve sipariş çeşidi, kayıt sistemi.
 
 ---
 
-## 9. Ekip ve Katkılar
-| Üye | Sorumluluk |
-|---|---|
-| nisanrcap | Hayalet yapay zekâsı, LLM NPC'ler, sahne entegrasyonu |
-| bltMelike | Sahneler, oyuncu, animasyon, pizza sistemi, müşteri, sinematik, menü, final |
 
-*(Commit dağılımı eşit olmalı, doğrula.)*
-
-## 10. Kullanılan Varlıklar
-Görseller Gemini ile üretildi. Model: qwen2.5:3b (Alibaba, Ollama üzerinden yerel).
+## 9. Kullanılan Varlıklar
+Görseller Gemini ile üretildi. 
+LLM Model: qwen2.5:3b (Alibaba, Ollama üzerinden yerel).
 
