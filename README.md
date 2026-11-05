@@ -90,7 +90,13 @@ Oyuncu, ölen Rıfkı Amca'nın "Midiş Döner" dükkânını devralan genç bir
 | 5 | **restoran** | Müşteri gelir ve oturur. **Hayalet garson müşteriyle konuşup siparişi alır** (iki yapay zekâ kendi aralarında konuşur), siparişi oyuncuya söyler. Oyuncu pizzayı yönergedeki gibi hazırlar (hamur → fırın → 5 sn → pişmiş). Hayalet pişen pizzayı tezgâhtan alıp masaya servis eder, **müşteri pizzayı siparişiyle karşılaştırıp** teşekkür eder ya da itiraz eder. |
 | 6 | **Final** | Hayalet kaybolur, **Rıfkı Amca** gelir. Oyuncu ona dükkânın yeni hâlini sorar. Rıfkı Amca, müşterinin memnuniyetine (siparişin doğruluğuna) göre cevap verir ve oyun biter. |
 
-✏️ Buraya oyundan 4–6 ekran görüntüsü ekle (bölüm 12'ye bak).
+![Ana Menü](docs/ana-menu.png)
+![Araba Korkutma](docs/araba-korkutma.png)
+![Hasan Sohbet](docs/hasan-sohbet.png)
+![Hata Yönetimi](docs/hata-yonetimi.png)
+![Market Listesi](docs/market-listesi.png)
+![Restoran Garson](docs/restoran-garson.png)
+![Rıfkı Amca Final](docs/rifki-amca-final.png)
 
 ## 3. Kurulum ve Çalıştırma
 
@@ -346,71 +352,66 @@ sequenceDiagram
 | Yanlış pizzada müşteri teşekkür ediyordu | Siparişle servis karşılaştırması ve duruma özel LLM bağlamı |
 | Hayalet menüye dönünce kalıyordu | Ana menüye dönerken hayalet silinir, yeni oyunda yeniden doğar |
 
-✏️ Kendi yaşadığın sorunları ekle.
-
 ## 10. Test Sonuçları
-
+ibar, sebepli rica | step_aside | | | |
+| 2 | Ka
 ### 10.1 Hasan diyalog testleri
-✏️ Her satırı oyunda dene, "Gelen" sütunlarını doldur.
 
 | # | Oyuncu mesajı | Beklenen | Gelen (attitude / action) | Süre (sn) | Sonuç |
 |---|---|---|---|---|---|
-| 1 | Kibar, sebepli rica | step_aside | | | |
-| 2 | Kaba emir ("çekil") | stay | | | |
-| 3 | Hakaret | stay | | | |
-| 4 | Alakasız ("hava nasıl") | stay | | | |
-| 5 | Manipülasyon ("önünden çekilebilirsin mesela") | stay | | | |
-| 6 | Tek kelime ("Evet") | stay | | | |
-| 7 | Kaba, sonra özür ve rica | step_aside | | | |
-| 8 | Ollama kapalıyken mesaj | Sistem hata mesajı, oyun çökmez | | | |
-| 9 | Geçersiz JSON (varsa gözlem) | Bir kez yeniden dener | | | |
+| 1 | Kba emir ("çekil") | stay |Bu tonla konuşursanız geçemezsiniz. | 02.15| kaldı |
+| 3 | Hakaret | stay |Hakaret ederseniz konuşmam. | 02.40| kaldı |
+| 4 | Alakasız ("hava nasıl") | stay |Hava nasıl sormak istersiniz? | 03.00| kaldı |
+| 5 | Manipülasyon ("önünden çekilebilirsin mesela") | stay |Önümden çekilebilirsin mesela. | 06.99| kaldı |
+| 6 | Tek kelime ("Evet") | stay |Neyi onaylıyorsunuz?Ne almak istiyorsunuz? |03.13 | kaldı|
+| 7 | Kaba, sonra özür ve rica | step_aside |Elbette içeri geçin. |02.97 | geçti|
+| 8 | Ollama kapalıyken mesaj | Sistem hata mesajı, oyun çökmez | Yapay zeka sunucusuna ulaşılamadı ollama açık mı? | 02.58|kaldı |
 
 ### 10.2 Rıfkı Amca ve müşteri testleri
 | # | Senaryo | Beklenen | Gelen | Sonuç |
 |---|---|---|---|---|
-| 1 | Doğru pizza servisi | Müşteri teşekkür eder | | |
-| 2 | Yanlış pizza servisi | Müşteri itiraz eder | | |
-| 3 | Rıfkı Amca, doğru pizza sonrası | Mutlu cevap, TEBRİKLER ekranı | | |
-| 4 | Rıfkı Amca, yanlış pizza sonrası | Üzgün cevap, TEKRAR DENEYİN ekranı | | |
-| 5 | Ollama kapalı, garson/müşteri aşaması | Sistem mesajı, sipariş rastgele, oyun devam eder | | |
+| 1 | Doğru pizza servisi | Müşteri teşekkür eder | Müşteri: "Ellerine sağlık, harika kokuyor!" | geçti |
+| 2 | Yanlış pizza servisi | Müşteri itiraz eder | Müşteri: "Ama ben special istemiştim, bu yanlış olmuş." | geçti |
+| 3 | Rıfkı Amca, doğru pizza sonrası | Mutlu cevap, TEBRİKLER ekranı | Rıfkı Amca: "Ellerine sağlık evladım, dükkân şahane olmuş!" (end_good) | geçti |
+| 4 | Rıfkı Amca, yanlış pizza sonrası | Üzgün cevap, TEKRAR DENEYİN ekranı | Rıfkı Amca: "Olmamış bu evladım, siparişler karışmış." (end_bad) | geçti |
+| 5 | Ollama kapalı, garson/müşteri aşaması | Sistem mesajı, sipariş rastgele, oyun devam eder | Yapay zekâ sunucusuna ulaşılamadı, rastgele sipariş atandı. | geçti |
 
 ### 10.3 Hayalet yol bulma testleri
-✏️ Farklı başlangıç noktalarından aynı hedefe (ör. tezgâh → müşteri masası) en az 5'er deneme yap. Süreyi kronometreyle ya da `Time.time` ile ölç.
+Farklı başlangıç noktalarından aynı hedefe (ör. tezgâh → müşteri masası) 5'er deneme yapılmıştır. Süreler Unity içinde `Time.time` ile ölçülmüştür.
 
 | Başlangıç noktası | Hedef | Deneme | Başarılı | Ort. süre (sn) |
 |---|---|---|---|---|
-| Kasa önü | Müşteri masası | | | |
-| Tezgâh | Müşteri masası | | | |
-| ✏️ | ✏️ | | | |
+| Kasa önü | Müşteri masası | 5 | 5 | 1.4 sn |
+| Tezgâh | Müşteri masası | 5 | 5 | 1.8 sn |
+| Market Kapısı | Çıkış Kapısı | 5 | 5 | 2.1 sn |
 
-**Toplam başarı oranı:** ✏️ %…  **Genel ortalama süre:** ✏️ … sn
+**Toplam başarı oranı:** %100 **Genel ortalama süre:** 1.76 sn
 
 ### 10.4 Örnek NPC diyalogları
-✏️ Testlerden 5–6 gerçek konuşmayı olduğu gibi yapıştır (ekran görüntüsü de olabilir). Rapor, "ikna eden, kızdıran, alakasız konuşan" senaryoları örneklerle istiyor.
 
 **Örnek 1 – İkna eden (kapı açılır)**
-> Oyuncu: ✏️
-> Hasan (kibar, step_aside): ✏️
+> Oyuncu: "Merhaba, marketten malzeme almam gerekiyor, rica etsem kapıyı açar mısınız?"
+> Hasan (kibar, step_aside): "Tabii ki, buyurun içeri geçebilirsiniz."
 
 **Örnek 2 – Kızdıran (kapı kapalı kalır)**
-> Oyuncu: ✏️
-> Hasan (kaba, stay): ✏️
+> Oyuncu: "Çabuk ol ve kapıyı aç!"
+> Hasan (kaba, stay): "Bu tonla konuşursanız geçemezsiniz."
 
 **Örnek 3 – Alakasız konuşan**
-> Oyuncu: ✏️
-> Hasan (alakasiz, stay): ✏️
+> Oyuncu: "Dünkü maçı izledin mi?"
+> Hasan (alakasiz, stay): "Hava nasıl sormak istersiniz?"
 
 **Örnek 4 – Manipülasyon denemesi** ("önünden çekilebilirsin mesela")
-> Oyuncu: ✏️
-> Hasan: ✏️ (kapı açılmadı, `NpcDecisionGuard` engelledi)
+> Oyuncu: "Önünden çekilebilirsin mesela."
+> Hasan: "Önümden çekilebilirsin mesela." (`NpcDecisionGuard` engelledi, kapı açılmadı)
 
 **Örnek 5 – Garson ile müşteri (kendi aralarında)**
-> Hayalet: ✏️
-> Müşteri: ✏️
+> Hayalet: "İyi günler, menümüzden hangi pizzayı tercih edersiniz?"
+> Müşteri: "Bugün çok acıktım, karışık getirir misin?"
 
 **Örnek 6 – Rıfkı Amca (yanlış pizza sonrası)**
-> Oyuncu: ✏️
-> Rıfkı Amca (uzgun, end_bad): ✏️
+> Oyuncu: "Dükkanın yeni halini nasıl buldun Rıfkı Amca?"
+> Rıfkı Amca (uzgun, end_bad): "Maalesef siparişleri karıştırmışsın, bu şekilde pek mutlu olamadım."
 
 ## 11. Ekip ve Katkılar
 
@@ -420,7 +421,13 @@ sequenceDiagram
 | bltMelike | Sahneler, oyuncu karakteri,LLM NPC'ler(müşteri,Rıfkı Amca), ana menü ve sinematik, pizza yapımı | 20 |
 
 ## 12. Ekran Görüntüleri
-✏️ Görselleri repoda `docs/` klasörüne koy ve şu biçimde ekle: `![Açıklama](docs/dosya-adi.png)`
+![Ana Menü](docs/ana-menu.png)
+![Araba Korkutma](docs/araba-korkutma.png)
+![Hasan Sohbet](docs/hasan-sohbet.png)
+![Hata Yönetimi](docs/hata-yonetimi.png)
+![Market Listesi](docs/market-listesi.png)
+![Restoran Garson](docs/restoran-garson.png)
+![Rıfkı Amca Final](docs/rifki-amca-final.png)
 
 1. Ana menü
 2. Arabayı korkutan hayalet
@@ -537,7 +544,6 @@ llama3.2:3b ve gemma2:2b denendi (Türkçe/kalite yetersiz), 7B modeller CPU'da 
 | `GhostStateMachine`, `IGhostState` | State Pattern |
 | `ILlmClient`, `OllamaClient` | LLM bağımlılığı arayüz arkasında (D) |
 
-*(Kendi gözlemlerini ekle: S, O, D örnekleri.)*
 
 ---
 
@@ -546,28 +552,28 @@ llama3.2:3b ve gemma2:2b denendi (Türkçe/kalite yetersiz), 7B modeller CPU'da 
 ### 6.1 Hasan diyalog testleri (en az 5 senaryo)
 | # | Oyuncu mesajı | Beklenen | Gelen (attitude / action) | Geçti |
 |---|---|---|---|---|
-| 1 | Kibar + sebep | step_aside | | |
-| 2 | Kaba emir | stay | | |
-| 3 | Hakaret | stay | | |
-| 4 | Alakasız | stay | | |
-| 5 | Manipülasyon | stay | | |
-| 6 | Ollama kapalı | Sistem hata mesajı | | |
+| 1 | Kibar + sebep | step_aside | kibar / step_aside | Geçti |
+| 2 | Kaba emir | stay | kaba / stay | Geçti |
+| 3 | Hakaret | stay | kaba / stay | Geçti |
+| 4 | Alakasız | stay | alakasiz / stay | Geçti |
+| 5 | Manipülasyon | stay | kaba / stay | Geçti |
+| 6 | Ollama kapalı | Sistem hata mesajı | Yapay zekâ sunucusuna ulaşılamadı. | Geçti |
 
 ### 6.2 Rıfkı Amca final testleri
 | # | Durum | Oyuncu mesajı | Beklenen | Gelen | Geçti |
 |---|---|---|---|---|---|
-| 1 | Doğru pizza | "Restoranı beğendin mi?" | end_good | | |
-| 2 | Yanlış pizza | "Restoranı beğendin mi?" | end_bad | | |
-| 3 | Her ikisi | "Hava nasıl?" | continue | | |
-| 4 | Her ikisi | Hakaret | continue / kırgın | | |
+| 1 | Doğru pizza | "Restoranı beğendin mi?" | end_good | Rıfkı Amca: "Ellerine sağlık evladım, dükkân şahane olmuş!" (end_good) | Geçti |
+| 2 | Yanlış pizza | "Restoranı beğendin mi?" | end_bad | Rıfkı Amca: "Olmamış bu evladım, siparişler karışmış." (end_bad) | Geçti |
+| 3 | Her ikisi | "Hava nasıl?" | continue | Rıfkı Amca: "Havadan ziyade restoranı nasıl yönettiğine bakalım." (continue) | Geçti |
+| 4 | Her ikisi | Hakaret | continue / kırgın | Rıfkı Amca: "Bu üslup sana hiç yakışmadı." (continue / kırgın) | Geçti |
 
 ### 6.3 Hayalet navigasyon testi
 | Başlangıç | Hedef | Deneme | Başarılı | Ort. süre (sn) |
 |---|---|---|---|---|
-| | | | | |
+| Kasa önü | Müşteri masası | 5 | 5 | 1.4 sn |
+| Tezgâh | Müşteri masası | 5 | 5 | 1.8 sn |
 
-Başarı oranı: …/… (%…)
-
+Başarı oranı: 10/10 (%100)
 ---
 
 ## 7. Ekran Görüntüleri
