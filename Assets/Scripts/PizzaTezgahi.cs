@@ -22,6 +22,7 @@ public class PizzaTezgahi : MonoBehaviour
 
     private void Update()
     {
+        if (OyunKilidi.Aktif) return;
         if (oyuncuYakin && !panel.Acik && Input.GetKeyDown(KeyCode.E))
         {
             if (oyuncu != null) oyuncu.KontrolAktif(false);

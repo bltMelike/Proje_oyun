@@ -34,6 +34,7 @@ public class YonergeYoneticisi : MonoBehaviour
 
     void Update()
     {
+        if (OyunKilidi.Aktif) return;   // amcayla konuşurken H ve Esc çalışmasın
         if (HTusuBasildi()) PaneliDegistir();
         if (yonergePaneli.activeSelf && EscBasildi()) PaneliKapat();
     }

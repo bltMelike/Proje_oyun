@@ -1,0 +1,881 @@
+fileFormatVersion: 2
+guid: e271e39cb37e10c49ba74429238506bb
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -3184230249313126092
+    second: rifkiamca_0
+  - first:
+      213: -8683205109400919695
+    second: rifkiamca_1
+  - first:
+      213: -4478405260333056018
+    second: rifkiamca_2
+  - first:
+      213: 7947041101827123468
+    second: rifkiamca_3
+  - first:
+      213: 8099441144240166489
+    second: rifkiamca_4
+  - first:
+      213: -7543037517159790228
+    second: rifkiamca_5
+  - first:
+      213: 5124530086793771896
+    second: rifkiamca_6
+  - first:
+      213: -5006233523481653948
+    second: rifkiamca_7
+  - first:
+      213: -5274462064803697386
+    second: rifkiamca_8
+  - first:
+      213: -733481937335478849
+    second: rifkiamca_9
+  - first:
+      213: -8788010221224895726
+    second: rifkiamca_10
+  - first:
+      213: -6288487365079183225
+    second: rifkiamca_11
+  - first:
+      213: -6459283538664956794
+    second: rifkiamca_12
+  - first:
+      213: -2956098846616936650
+    second: rifkiamca_13
+  - first:
+      213: 3691250486914653727
+    second: rifkiamca_14
+  - first:
+      213: 4295679868136872728
+    second: rifkiamca_15
+  - first:
+      213: -2317177382312078614
+    second: rifkiamca_16
+  - first:
+      213: 4009842476741862394
+    second: rifkiamca_17
+  - first:
+      213: 7635833859891344115
+    second: rifkiamca_18
+  - first:
+      213: -3872719585578083894
+    second: rifkiamca_19
+  - first:
+      213: -3759003302422492299
+    second: rifkiamca_20
+  - first:
+      213: -1160402532036464943
+    second: rifkiamca_21
+  - first:
+      213: 892850668727228513
+    second: rifkiamca_22
+  - first:
+      213: -4451205799135750521
+    second: rifkiamca_23
+  - first:
+      213: -951267121584922853
+    second: rifkiamca_24
+  - first:
+      213: 1279263093434902061
+    second: rifkiamca_25
+  - first:
+      213: 2142054989574119116
+    second: rifkiamca_26
+  - first:
+      213: 5211566268561286836
+    second: rifkiamca_27
+  - first:
+      213: -3774417890637131088
+    second: rifkiamca_28
+  - first:
+      213: 2264428336914273060
+    second: rifkiamca_29
+  - first:
+      213: 3707527008032176584
+    second: rifkiamca_30
+  - first:
+      213: 1757106773555816950
+    second: rifkiamca_31
+  - first:
+      213: 1837073651654085575
+    second: rifkiamca_32
+  - first:
+      213: 1041246576086213306
+    second: rifkiamca_33
+  - first:
+      213: -8513203919580392322
+    second: rifkiamca_34
+  - first:
+      213: 2586310844511652760
+    second: rifkiamca_35
+  - first:
+      213: 4925890873620718761
+    second: rifkiamca_36
+  - first:
+      213: -1958472746847626261
+    second: rifkiamca_37
+  - first:
+      213: 6812240071933710066
+    second: rifkiamca_38
+  - first:
+      213: -8103554761337896988
+    second: rifkiamca_39
+  - first:
+      213: 2875283592487317633
+    second: rifkiamca_40
+  - first:
+      213: -2176679801319711365
+    second: rifkiamca_41
+  - first:
+      213: -7626990495418626564
+    second: rifkiamca_42
+  - first:
+      213: 8596870655406043898
+    second: rifkiamca_43
+  - first:
+      213: -3971599386906488990
+    second: rifkiamca_44
+  - first:
+      213: 6370262466947580011
+    second: rifkiamca_45
+  - first:
+      213: 2425431280108501263
+    second: rifkiamca_46
+  - first:
+      213: 1181470624357408976
+    second: rifkiamca_47
+  - first:
+      213: 8886045843098984164
+    second: rifkiamca_48
+  - first:
+      213: -6620253184172799526
+    second: rifkiamca_49
+  - first:
+      213: 1833746642618736827
+    second: rifkiamca_50
+  - first:
+      213: 7234560307591076330
+    second: rifkiamca_51
+  - first:
+      213: -5955861082971622029
+    second: rifkiamca_52
+  - first:
+      213: 8256737255154019969
+    second: rifkiamca_53
+  - first:
+      213: -4271973770262535991
+    second: rifkiamca_54
+  - first:
+      213: -4981074025395928666
+    second: rifkiamca_55
+  - first:
+      213: -4214341015551629708
+    second: rifkiamca_56
+  - first:
+      213: 5338081581805506053
+    second: rifkiamca_57
+  - first:
+      213: 4368419011056362482
+    second: rifkiamca_58
+  - first:
+      213: 2628818559310172185
+    second: rifkiamca_59
+  - first:
+      213: 3575907665209375627
+    second: rifkiamca_60
+  - first:
+      213: -7704163219381323207
+    second: rifkiamca_61
+  - first:
+      213: -3925103220146939975
+    second: rifkiamca_62
+  - first:
+      213: -3289816274963263307
+    second: rifkiamca_63
+  - first:
+      213: -8445610126556265820
+    second: rifkiamca_64
+  - first:
+      213: -9035791738708095502
+    second: rifkiamca_65
+  - first:
+      213: -2872104455816054473
+    second: rifkiamca_66
+  - first:
+      213: -628294763626418196
+    second: rifkiamca_67
+  - first:
+      213: -1926107618657253283
+    second: rifkiamca_68
+  - first:
+      213: -2527420987811191033
+    second: rifkiamca_69
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: rifkiamca_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1280
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 43933a285775fc3d0800000000000000
+      internalID: -3184230249313126092
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rifkiamca_1
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 1280
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1712d4665fe0f7780800000000000000
+      internalID: -8683205109400919695
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rifkiamca_2
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 1280
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eef7b91b42289d1c0800000000000000
+      internalID: -4478405260333056018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rifkiamca_3
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 1280
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c09a5d1e6cf894e60800000000000000
+      internalID: 7947041101827123468
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rifkiamca_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1024
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9565e99decef66070800000000000000
+      internalID: 8099441144240166489
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rifkiamca_5
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 1024
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c690f36c75fb15790800000000000000
+      internalID: -7543037517159790228
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rifkiamca_6
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 1024
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 87bf42886fcfd1740800000000000000
+      internalID: 5124530086793771896
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rifkiamca_7
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 1024
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 44d49327229468ab0800000000000000
+      internalID: -5006233523481653948
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rifkiamca_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 768
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61d2a1682b85dc6b0800000000000000
+      internalID: -5274462064803697386
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rifkiamca_9
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 768
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fb514fb601622d5f0800000000000000
+      internalID: -733481937335478849
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rifkiamca_10
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 768
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 21b5361c347ba0680800000000000000
+      internalID: -8788010221224895726
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rifkiamca_11
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 768
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7805ced2f0ecab8a0800000000000000
+      internalID: -6288487365079183225
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rifkiamca_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 512
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 68cd85628d30c56a0800000000000000
+      internalID: -6459283538664956794
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rifkiamca_13
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 512
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 63f9476d2c3d9f6d0800000000000000
+      internalID: -2956098846616936650
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rifkiamca_14
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 512
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f1e1981c2c4f93330800000000000000
+      internalID: 3691250486914653727
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rifkiamca_15
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 512
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 81b5811a4125d9b30800000000000000
+      internalID: 4295679868136872728
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rifkiamca_16
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 256
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ae218bd927bb7dfd0800000000000000
+      internalID: -2317177382312078614
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rifkiamca_17
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 256
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: af3a87fcc72d5a730800000000000000
+      internalID: 4009842476741862394
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rifkiamca_18
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 256
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3f239be607ee7f960800000000000000
+      internalID: 7635833859891344115
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rifkiamca_19
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 256
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ac99be23e06514ac0800000000000000
+      internalID: -3872719585578083894
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rifkiamca_20
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 57b4699996655dbc0800000000000000
+      internalID: -3759003302422492299
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rifkiamca_21
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1dea0819b0c65efe0800000000000000
+      internalID: -1160402532036464943
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rifkiamca_22
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 168d4f2e3fa046c00800000000000000
+      internalID: 892850668727228513
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rifkiamca_23
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 786da50c8e32a32c0800000000000000
+      internalID: -4451205799135750521
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 425d43af385f0f845958d3088ad63008
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":4.0,"y":6.0},"gridSpriteSize":{"x":256.0,"y":256.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      rifkiamca_0: -3184230249313126092
+      rifkiamca_1: -8683205109400919695
+      rifkiamca_10: -8788010221224895726
+      rifkiamca_11: -6288487365079183225
+      rifkiamca_12: -6459283538664956794
+      rifkiamca_13: -2956098846616936650
+      rifkiamca_14: 3691250486914653727
+      rifkiamca_15: 4295679868136872728
+      rifkiamca_16: -2317177382312078614
+      rifkiamca_17: 4009842476741862394
+      rifkiamca_18: 7635833859891344115
+      rifkiamca_19: -3872719585578083894
+      rifkiamca_2: -4478405260333056018
+      rifkiamca_20: -3759003302422492299
+      rifkiamca_21: -1160402532036464943
+      rifkiamca_22: 892850668727228513
+      rifkiamca_23: -4451205799135750521
+      rifkiamca_3: 7947041101827123468
+      rifkiamca_4: 8099441144240166489
+      rifkiamca_5: -7543037517159790228
+      rifkiamca_6: 5124530086793771896
+      rifkiamca_7: -5006233523481653948
+      rifkiamca_8: -5274462064803697386
+      rifkiamca_9: -733481937335478849
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

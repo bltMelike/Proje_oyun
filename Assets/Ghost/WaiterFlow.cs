@@ -30,7 +30,7 @@ public class WaiterFlow : MonoBehaviour
 
     [SerializeField, TextArea(4, 10)]
     private string ghostPersona =
-        "Sen Midiş Pizza restoranında çalışan, tatlı ve nazik bir hayalet garsonsun. Kısa ve samimi konuşursun. " +
+        "Sen Mıdış Pizza restoranında çalışan, tatlı ve nazik bir hayalet garsonsun. Kısa ve samimi konuşursun. " +
         "Menüde sadece iki pizza var: Karışık ve Special. " +
         "Sadece JSON ver: {\"reply\":\"...\"}. " +
         "reply: en fazla 2 kısa cümle, akıcı Türkçe, İngilizce kelime ve emoji yok.";
@@ -74,6 +74,11 @@ public class WaiterFlow : MonoBehaviour
     // Müşterinin seçtiği pizza: "Karışık" ya da "Special".
     public string ChosenPizza => chosenPizza;
 
+    // Teslim sonucu: Rıfkı Amca bunu okur.
+    public bool ServedCorrect => servedCorrect;
+
+    // Teslim konuşması bitince çağrılır, final sahnesi bunu dinler.
+    public event System.Action ServiceFinished;
     private void Awake()
     {
         Instance = this;
@@ -194,9 +199,10 @@ public class WaiterFlow : MonoBehaviour
         await SayAgent("Müşteri", thanks.Result);
         if (this == null) return;
 
-        // 8) Kasanın önüne dön ve oyunu bitir.
+        // 8) Kasanın önüne dön ve tetikle
         await GoToAsync(kasaOnu);
         if (this == null) return;
+        ServiceFinished?.Invoke();
     }
 
     // ---------- Durum cümleleri (LLM'e verilen bağlam) ----------
@@ -428,3 +434,4 @@ public class WaiterFlow : MonoBehaviour
         }
     }
 }
+
