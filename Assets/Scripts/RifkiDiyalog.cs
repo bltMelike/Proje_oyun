@@ -43,6 +43,8 @@ public class RifkiDiyalog : MonoBehaviour
         public string Reply;
         public string Action;
         public string Hata;
+
+        public bool Tutarsiz;
     }
 
     private readonly List<Msg> gecmis = new List<Msg>();
@@ -82,14 +84,18 @@ public class RifkiDiyalog : MonoBehaviour
     private string SistemPromptu(bool basarili)
     {
         string sonuc = basarili
-            ? "Müşteri doğru pizzayı aldı ve mutlu ayrıldı."
-            : "Müşteri yanlış pizza aldı, kızdı ve kalkıp gitti.";
+            ? "Müşteri DOĞRU pizzayı aldı ve mutlu ayrıldı. Sen mutlu ve gururlusun."
+            : "Müşteri YANLIŞ pizza aldı, kızdı ve kalkıp gitti. Sen üzgün ve kırgınsın. MUTLU DEĞİLSİN.";
 
         string ornek = basarili
             ? "Oyuncu: Restoranı beğendin mi amca?\n" +
-              "Sen: {\"attitude\":\"mutlu\",\"reply\":\"Beğenmek mi evladım, gözlerim doldu! Dükkân emin ellerde.\",\"action\":\"end_good\"}\n"
+              "Sen: {\"attitude\":\"mutlu\",\"reply\":\"Beğenmek mi evladım, gözlerim doldu! Dükkân emin ellerde.\",\"action\":\"end_good\"}\n" +
+              "Oyuncu: Dükkân nasıl olmuş?\n" +
+              "Sen: {\"attitude\":\"mutlu\",\"reply\":\"Çok güzel olmuş kızım, müşteri bile memnun gitti.\",\"action\":\"end_good\"}\n"
             : "Oyuncu: Restoranı beğendin mi amca?\n" +
-              "Sen: {\"attitude\":\"uzgun\",\"reply\":\"Müşteri küstü evladım, biraz daha özen göstermen lazım.\",\"action\":\"end_bad\"}\n";
+              "Sen: {\"attitude\":\"uzgun\",\"reply\":\"Beğenemedim evladım, müşteri yanlış pizza yüzünden küstü. Biraz daha özen lazım.\",\"action\":\"end_bad\"}\n" +
+              "Oyuncu: Dükkân nasıl olmuş?\n" +
+              "Sen: {\"attitude\":\"uzgun\",\"reply\":\"İçim sızladı kızım, siparişi karıştırdın, müşteri kızıp gitti.\",\"action\":\"end_bad\"}\n";
 
         return
             "Sen Rıfkı Amca'sın. Yıllarca Midiş Döner'i işlettin, öldükten sonra hayalet oldun ve dükkânı genç bir kıza devrettin. " +
@@ -97,12 +103,12 @@ public class RifkiDiyalog : MonoBehaviour
             "Oyuncu sana dükkânı beğenip beğenmediğini soracak.\n" +
             "SİPARİŞ SONUCU: " + sonuc + "\n" +
             "Kurallar:\n" +
-            "- Oyuncu dükkânı, restoranı veya yaptığı işi sorarsa SİPARİŞ SONUCU'na uygun cevap ver. " +
+            "- Oyuncu dükkânı, restoranı veya yaptığı işi sorarsa SADECE SİPARİŞ SONUCU'na göre cevap ver. " +
             (basarili
-                ? "Sonuç olumlu, mutlu ve gururlu ol, action \"end_good\" olsun.\n"
-                : "Sonuç olumsuz, üzgün ve kırgın ol ama kırıcı olma, action \"end_bad\" olsun.\n") +
+                ? "Sonuç olumlu: mutlu ve gururlu ol, attitude \"mutlu\", action \"end_good\" olsun.\n"
+                : "Sonuç olumsuz: dükkânı övme, tebrik etme, mutlu olma. Üzgün ve kırgın ol ama kırıcı olma, yanlış pizzayı an. attitude \"uzgun\", action \"end_bad\" olsun.\n") +
             "- Oyuncu alakasız bir şey söylerse kısaca karşılık ver, restoranı sor, action \"continue\" olsun.\n" +
-            "- reply: en fazla 2 kısa cümle, akıcı Türkçe, emoji ve İngilizce kelime yok.\n" +
+            "- reply: en fazla 2 kısa cümle, akıcı Türkçe, emoji ve İngilizce kelime yok. Örnekleri aynen kopyalama.\n" +
             "Sadece şu JSON'u ver: {\"attitude\":\"mutlu|uzgun|kizgin|alakasiz\",\"reply\":\"...\",\"action\":\"end_good|end_bad|continue\"}\n" +
             "Örnekler:\n" + ornek +
             "Oyuncu: Hava nasıl?\n" +
@@ -131,21 +137,27 @@ public class RifkiDiyalog : MonoBehaviour
         Sonuc s = await SorAsync();
         if (this == null) return;
 
-        if (!s.Basarili)
+        // Cevap sipariş sonucuyla çelişiyorsa bir kez uyarıp tekrar sor.
+        if (s.Basarili && s.Tutarsiz)
         {
-            // Hata: oyun çökmez, kullanıcıya bilgi verilir, tekrar denenebilir.
-            gecmis.RemoveAt(gecmis.Count - 1);
-            cevapYazi.text = s.Hata;
-            ipucuYazi.text = "Tekrar yazıp Enter'a basabilirsin.";
-            SerbestBirak();
-            return;
+            gecmis.RemoveAt(gecmis.Count - 1);   // tutarsız cevabı geçmişten çıkar
+            var hatirlatma = new Msg
+            {
+                role = "system",
+                content = "UYARI: SİPARİŞ SONUCU'na uygun cevap ver. " +
+                          (siparisBasarili ? "Müşteri mutlu gitti, sen de mutlusun." : "Müşteri yanlış pizza aldı, sen MUTLU DEĞİLSİN, üzgünsün.")
+            };
+            gecmis.Add(hatirlatma);
+            s = await SorAsync();
+            if (this == null) return;
+            gecmis.Remove(hatirlatma);
         }
 
         cevapYazi.text = s.Reply;
         tur++;
 
         bool bitir = s.Action == "end_good" || s.Action == "end_bad";
-        bool basarili = s.Action == "end_good";
+        bool basarili = siparisBasarili;   // bitiş ekranı gerçek sipariş sonucuna göre
 
         // Güvenlik ağı: model üst üste "continue" derse sohbet sonsuza gitmesin.
         if (!bitir && tur >= enFazlaTur)
@@ -224,8 +236,14 @@ public class RifkiDiyalog : MonoBehaviour
             string aksiyon = (c.action ?? "continue").Trim().ToLowerInvariant();
             if (aksiyon != "end_good" && aksiyon != "end_bad") aksiyon = "continue";
 
+            // Sipariş sonucuyla çelişen ruh hâli var mı? (yanlış pizzada mutlu olmak gibi)
+            string tavir = (c.attitude ?? "").Trim().ToLowerInvariant();
+            bool tutarsiz = siparisBasarili
+                ? (tavir == "kizgin" || tavir == "uzgun" || aksiyon == "end_bad")
+                : (tavir == "mutlu" || aksiyon == "end_good");
+
             gecmis.Add(new Msg { role = "assistant", content = ham });
-            return new Sonuc { Basarili = true, Reply = c.reply.Trim(), Action = aksiyon };
+            return new Sonuc { Basarili = true, Reply = c.reply.Trim(), Action = aksiyon, Tutarsiz = tutarsiz };
         }
         catch (Exception)
         {
@@ -242,6 +260,17 @@ public class RifkiDiyalog : MonoBehaviour
         bitisYazi.text = basarili
             ? "TEBRİKLER!\nRıfkı Amca mutlu: MIDIŞ Pizza emin ellerde."
             : "TEKRAR DENEYİN...\nRıfkı Amca üzüldü. Dükkân için yeniden dene.";
+    }
+
+    private void AnaMenuyeDon()
+    {
+        OyunKilidi.Aktif = false;
+
+        // Hayalet sahneler arası kalıyor; menüden yeni oyuna başlayınca temiz bir hayalet doğsun.
+        if (GhostController.Instance != null)
+            Destroy(GhostController.Instance.gameObject);
+
+        SceneManager.LoadScene(menuSahnesi);
     }
 
     // ---------- Arayüz ----------
@@ -316,7 +345,7 @@ public class RifkiDiyalog : MonoBehaviour
         var mrt = menu.GetComponent<RectTransform>();
         mrt.anchorMin = mrt.anchorMax = new Vector2(0.5f, 0.5f);
         mrt.anchoredPosition = new Vector2(0, -200); mrt.sizeDelta = new Vector2(520, 110);
-        menu.AddComponent<Button>().onClick.AddListener(() => SceneManager.LoadScene(menuSahnesi));
+        menu.AddComponent<Button>().onClick.AddListener(AnaMenuyeDon);
         var my = Yazi(menu.transform, "ANA MENÜ", 48, FontStyles.Bold, new Color(1f, 0.93f, 0.78f));
         Doldur(my.rectTransform);
 
