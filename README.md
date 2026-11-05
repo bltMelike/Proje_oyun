@@ -55,7 +55,8 @@ stateDiagram-v2
     MoveToTarget --> FetchPause: Ürüne varıldı
     CastSpell --> Follow: Büyü bitti
     FetchPause --> Follow: Bekleme bitti
-    Follow --> Idle: Restoranda HoldAt# Midiş Pizza
+    Follow --> Idle: Restoranda HoldAt Midiş Pizza
+```
 
 **Yazılım Geliştirme Laboratuvarı-I – Proje-1**
 Unity 6.3 LTS (6000.3.25f1) · 2D · Yerel LLM (Ollama) · NavMesh
@@ -66,6 +67,7 @@ Unity 6.3 LTS (6000.3.25f1) · 2D · Yerel LLM (Ollama) · NavMesh
 | Repo | https://github.com/bltMelike/Proje_oyun.git |
 | Ders | Kocaeli Üniversitesi, Teknoloji Fakültesi, Bilişim Sistemleri Mühendisliği, Yazılım Geliştirme Laboratuvarı-I, Proje-1 |
 | Ekip üyeleri | Nisanur ÇAP (nisanrcap), Melike BULUT (bltMelike) |
+
 ---
 
 ## 1. Giriş: Amaç ve Senaryo
@@ -114,9 +116,9 @@ Not: Ollama kapalıyken oyun çökmez. Yapay zekâ gereken yerlerde ekranda "Yap
 
 ## 4. Kontroller
 
-WASD / Oklar: Karakteri hareket ettirme
-E: Tezgâhta pizza seçimi ve NPC'ler ile etkileşime girme
-Fare Tıklaması: Pizzayı fırına koyma / Hayalete nesne gösterme / Eşya seçme
+WASD / Oklar: Karakteri hareket ettirme  
+E: Tezgâhta pizza seçimi ve NPC'ler ile etkileşime girme  
+Fare Tıklaması: Pizzayı fırına koyma / Hayalete nesne gösterme / Eşya seçme  
 Enter: Sohbet ekranında LLM'e mesaj gönderme
 
 ## 5. Ödev Gereksinimlerinin Karşılanması
@@ -163,7 +165,7 @@ Enter: Sohbet ekranında LLM'e mesaj gönderme
 - **S (tek sorumluluk):** Her durum sınıfı tek davranıştan sorumludur. `OllamaClient` yalnızca iletişimi, `NpcResponseParser` yalnızca ayrıştırmayı yapar.
 - **O (açık/kapalı):** Yeni bir hayalet davranışı eklemek için mevcut durumlar değiştirilmez, yeni `IGhostState` sınıfı yazılır (ör. `FetchPauseState`, `IdleState` sonradan eklendi).
 - **D (bağımlılığı tersine çevirme):** `GhostController` somut durumlara değil `IGhostState` arayüzüne bağlıdır.
-- I (Interface Segregation / Arayüz Ayrımı): Arabanın korkutulabilmesi için IFearable arayüzü yazılmış, CarController bu arayüzü uygulayarak hayalet kodunun doğrudan arabaya bağımlı olmasını engellemiştir.
+- **I (Interface Segregation / Arayüz Ayrımı):** Arabanın korkutulabilmesi için `IFearable` arayüzü yazılmış, `CarController` bu arayüzü uygulayarak hayalet kodunun doğrudan arabaya bağımlı olmasını engellemiştir.
 
 ## 7. Hayalet Yapay Zekâsı
 
